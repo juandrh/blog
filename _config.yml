@@ -6,11 +6,11 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: Blog
-description: Mi viaje personal en IA.
+title: juandrh2.0
+description: Aprendiendo Inteligencia Artificial a los 50.
 github_username: juandrh
 # you can comment the below line out if your repo name is not different than your baseurl
-github_repo: "fastpages"
+# github_repo: "fastpages"
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
@@ -58,7 +58,7 @@ annotations: false
 show_tags: true
 
 # Add your Google Analytics ID here if you have one and want to use it
-google_analytics: UA-57531313-5
+google_analytics: #UA-57531313-5
 
 exclude:
   - docker-compose.yml
