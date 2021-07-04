@@ -1,1 +1,1 @@
-Sitemap: https://juandrh.github.io//blog/sitemap.xml
+Sitemap: https://juandrh.github.io/blog/sitemap.xml
