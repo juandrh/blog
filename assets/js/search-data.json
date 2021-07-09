@@ -2,12 +2,23 @@
   
     
   
+    
+        "post1": {
+            "title": "Deep_learning_intro",
+            "content": "Machine Learning (aprendizaje automático) es la disciplina de programación en la que se obtienen resultados aprendiendo de los datos y no a través de escribir enteramente el código. . El aprendizaje podrá ser: . Supervisado: los datos están etiquetados. . | No supervisado: los datos no están etiquetados. . | . Deep Learning (aprendizaje profundo) forma parte de Machine Learning y se caracteriza por usar redes neuronales artificiales con varias capas. . Un modelo básico de aprendizaje supervisado: . . El objetivo es encontrar un modelo que haga predicciones correctas sobre datos que no haya visto antes. . Etapas: . se tratan los datos para ser procesados . | se escoge una arquitectura . | se dividen los datos en tres grupos: . para entrenamiento . | para validación . | para test . | . | se lanza un proceso de aprendizaje sobre los datos de entrenamiento . | se comprueba el modelo con los datos de validación y se cambian los hiperparámetros si es necesario . | si se consiguen un resultado deseado se guarda el modelo (arquitectura + parámetros) . | .",
+            "url": "https://juandrh.github.io/blog/2021/07/08/deep_learning_intro.html",
+            "relUrl": "/2021/07/08/deep_learning_intro.html",
+            "date": " • Jul 8, 2021"
+        }
+        
+    
+  
 
   
   
 
   
-      "page1": {
+      ,"page1": {
           "title": "About Me",
           "content": "This website is powered by fastpages 1. . a blogging platform that natively supports Jupyter notebooks in addition to other formats. &#8617; . |",
           "url": "https://juandrh.github.io/blog/about/",
