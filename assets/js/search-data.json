@@ -5,7 +5,7 @@
     
         "post1": {
             "title": "Title",
-            "content": ". Deep Learning . Machine Learning (aprendizaje automático) es la disciplina de programación en la que se obtienen resultados aprendiendo de los datos y no a través de escribir enteramente el código. . Este es el modelo básico: . ![Modelo](img/modelo.png) . Deep Learning (aprendizaje profundo) forma parte de Machine Learning y se carateriza por usar redes neuronales artificiales con varias capas. .",
+            "content": ". Deep Learning . Machine Learning (aprendizaje automático) es la disciplina de programación en la que se obtienen resultados aprendiendo de los datos y no a través de escribir enteramente el código. . Este es el modelo básico: . from IPython.display import Image from IPython.core.display import HTML Image(url= &quot;img/modelo.jpg&quot;) . Deep Learning (aprendizaje profundo) forma parte de Machine Learning y se carateriza por usar redes neuronales artificiales con varias capas. .",
             "url": "https://juandrh.github.io/blog/2021/07/08/deep_learning.html",
             "relUrl": "/2021/07/08/deep_learning.html",
             "date": " • Jul 8, 2021"
