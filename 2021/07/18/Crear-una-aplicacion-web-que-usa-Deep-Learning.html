@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>**Preparación del entorno** | Juan del Rio</title>
+<title>Title | Juan del Rio</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="**Preparación del entorno**" />
+<meta property="og:title" content="Title" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Aprendiendo Inteligencia Artificial a los 50." />
 <meta property="og:description" content="Aprendiendo Inteligencia Artificial a los 50." />
@@ -16,7 +16,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-07-18T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://juandrh.github.io/blog/2021/07/18/Crear-una-aplicacion-web-que-usa-Deep-Learning.html","@type":"BlogPosting","headline":"**Preparación del entorno**","dateModified":"2021-07-18T00:00:00-05:00","datePublished":"2021-07-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://juandrh.github.io/blog/2021/07/18/Crear-una-aplicacion-web-que-usa-Deep-Learning.html"},"description":"Aprendiendo Inteligencia Artificial a los 50.","@context":"https://schema.org"}</script>
+{"url":"https://juandrh.github.io/blog/2021/07/18/Crear-una-aplicacion-web-que-usa-Deep-Learning.html","@type":"BlogPosting","headline":"Title","dateModified":"2021-07-18T00:00:00-05:00","datePublished":"2021-07-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://juandrh.github.io/blog/2021/07/18/Crear-una-aplicacion-web-que-usa-Deep-Learning.html"},"description":"Aprendiendo Inteligencia Artificial a los 50.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://juandrh.github.io/blog/feed.xml" title="Juan del Rio" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -71,7 +71,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">&lt;h2&gt;**Preparación del entorno**&lt;/h2&gt;</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-18T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-18T00:00:00-05:00" itemprop="datePublished">
         Jul 18, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -149,13 +149,44 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="**Archivos-de-la-aplicaci&#243;n**"><h2>**Archivos de la aplicaci&#243;n**</h2><a class="anchor-link" href="#**Archivos-de-la-aplicaci&#243;n**"> </a></h1><p>Crea un archivo de python con tu editor de textos (yo uso VS Code) en la carpeta “web”.
+<p><strong><h2>Preparación del entorno</h2></strong></p>
+<h3>Crea un entorno virtual donde trabajar:</h3><p><p>En el terminal:</p>
+<ul>
+<li>python3 -m venv env1 </li>
+<li>source env1/bin/activate</li>
+</ul>
+<p>Si se quiere salir del entorno:</p>
+<ul>
+<li>deactivate</li>
+</ul>
+<p>&lt;/p&gt;
+<br /></p>
+<h3>Instala Flask: framework que permite crear aplicaciones web rápidamente </h3><ul>
+<li>pip3 install flask</li>
+<li>python -m flask --version </li>
+</ul>
+<p><br /></p>
+<h3>Crea directorio donde alojar la web y dos subcarpetas que usará la app</h3><ul>
+<li>mkdir web</li>
+<li>cd web</li>
+<li>mkdir templates</li>
+<li>mkdir static</li>
+</ul>
+<p>Nota: no cambiar el nombre de templates y static ya que los usará Flask</p>
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><h2>&lt;/strong&gt;Archivos de la aplicación&lt;/h2&gt;**&lt;/p&gt;
+<p>Crea un archivo de python con tu editor de textos (yo uso VS Code) en la carpeta “web”.
 <br />
  Combinaremos el código de nuestro modelo de Deep Learning usado para el curso y escrito en un Jupyter Notebook y el código específico de Flask que generará la web.</p>
 
-</div>
-</div>
-</div>
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -356,8 +387,10 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-</div>
+&lt;/div&gt;
+ 
 
+</h2></strong></p></div></div></div></p></div></div></div></div>
 
 
   </div><a class="u-url" href="/blog/2021/07/18/Crear-una-aplicacion-web-que-usa-Deep-Learning.html" hidden></a>
