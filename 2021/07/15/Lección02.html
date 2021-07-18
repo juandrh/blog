@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Lección02 | Juan del Rio</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Lección02" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fuente: curso “Practical Deep Learning for Coders” (Fast.ai)" />
+<meta property="og:description" content="Fuente: curso “Practical Deep Learning for Coders” (Fast.ai)" />
+<link rel="canonical" href="https://juandrh.github.io/blog/2021/07/15/Lecci%C3%B3n02.html" />
+<meta property="og:url" content="https://juandrh.github.io/blog/2021/07/15/Lecci%C3%B3n02.html" />
+<meta property="og:site_name" content="Juan del Rio" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-15T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://juandrh.github.io/blog/2021/07/15/Lecci%C3%B3n02.html","@type":"BlogPosting","headline":"Lección02","dateModified":"2021-07-15T00:00:00-05:00","datePublished":"2021-07-15T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://juandrh.github.io/blog/2021/07/15/Lecci%C3%B3n02.html"},"description":"Fuente: curso “Practical Deep Learning for Coders” (Fast.ai)","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://juandrh.github.io/blog/feed.xml" title="Juan del Rio" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Juan del Rio</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Lección02</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-15T00:00:00-05:00" itemprop="datePublished">
+        Jul 15, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><em>Fuente: curso “Practical Deep Learning for Coders” (<a href="https://www.fast.ai/"><span class="underline">Fast.ai</span></a>)</em></p>
+
+<h1 id="deep-learning-en-la-práctica">Deep Learning en la práctica</h1>
+
+<p>Sirve para resolver multitud de problemas, pero podemos acercarnos con una de estas mentalidades erróneas:</p>
+
+<ul>
+  <li>
+    <blockquote>
+      <p>subestimar las limitaciones y sobreestimar la capacidades: lleva a resultados pobres al principio.</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>sobreestimar las limitaciones y subestimar las capacidades: laleja del uso de la herramienta.</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>subestimar las limitaciones (lleva a errores en la ejecución) y capacidades (no se intentan soluciones que pueden ser beneficiosas)</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p>Siempre será mejor trabajar de menos a más, averiguando los límites y capacidades del problema, asumiendo gradualmente los riesgos.</p>
+
+<h3 id="comienzo-del-proyecto"><strong>Comienzo del proyecto</strong></h3>
+
+<p>Pasos:</p>
+
+<ul>
+  <li>
+    <blockquote>
+      <p>Seleccionar el proyecto.</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>Ver disponibilidad de datos</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p>Consejos:</p>
+
+<ul>
+  <li>
+    <blockquote>
+      <p>trabajar de principio a fin en el proyecto, no esperar a tener el proyecto o datos perfectos. Esto ayuda a averiguar cuantos datos necesitamos.</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>empezar con un prototipo que luego mejorará hasta que se ponga en producción</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>si no encuentras proyecto, usa un proyecto que ya exista, como los que hay en las competiciones de <a href="https://www.kaggle.com/"><span class="underline">Kaggle</span></a>.</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>si estás empezando no escojas un proyecto demasiado novedoso, si algo falla no tendrás mucha ayuda.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="usos-actuales"><strong>Usos actuales</strong></h3>
+
+<ul>
+  <li>
+    <h4 id="imagenes-reconocimiento-de-objetos-segmentación-otros-usos-diferentes-de-la-imagen"><span class="underline">Imagenes</span>: reconocimiento de objetos, segmentación, otros usos diferentes de la imagen</h4>
+  </li>
+  <li>
+    <blockquote>
+      <p><span class="underline">Texto</span> (procesamiento del lenguaje natural:NLP): clasificar, resumir, generar textos (aunque no generan respuestas correctas), traducir.</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p><span class="underline">Combinando textos e imágenes</span> (sin garantía de que resultados correctos, se aconseja supervisión humana)</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>Datos en tablas y series temporales</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>Sistemas recomendadores: aunque tienden a recomendar lo que gusta no lo que puede beneficiar (productos nuevos)</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>otros tipos</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="enfoque-del-tren-motriz"><strong>Enfoque del tren motriz</strong></h3>
+
+<p><img src="https://juandrh.github.io/blog/assets/img/2021-07-15-Lección02/media/image2.png" alt="" /></p>
+
+<p>Define el <strong>objetivo</strong> que se busca -&gt; averigua qué <strong>acciones</strong> puedes realizar y qué <strong>datos</strong> puedes conseguir -&gt; construye el <strong>modelo</strong></p>
+
+<h3 id="datos"><strong>Datos</strong></h3>
+
+<p>En internet hay muchos, es necesario encontrar la forma de descargarlo.</p>
+
+<p>Bing Image Search:</p>
+
+<ul>
+  <li>
+    <blockquote>
+      <p>registro en <a href="https://azure.microsoft.com/es-es/"><span class="underline">Microsoft Azure</span></a></p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>usar la llave proporcionada (key) para realizar la búsqueda y descarga</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p>key = os.environ.get(‘AZURE_SEARCH_KEY’, ‘40757fdc95da4c9990a6e01829dba6e4’)</p>
+
+<p>Nota: cuidado con los datos sesgados, ¿qué obtienes con tus búsquedas?</p>
+
+<p><strong>Aumento de datos:</strong> realizar variaciones aleatorias de los datos para que parezcan diferentes:</p>
+
+<p>Rotar, deformación de perspectiva, cambios de brillo y cambios de contraste.</p>
+
+<h3 id="procesar-los-datos-para-el-modelo"><strong>Procesar los datos para el modelo</strong></h3>
+
+<p>DataLoaders: almacenan los datos para entrenar y validar</p>
+
+<ul>
+  <li>
+    <blockquote>
+      <p>¿qué tipos de datos tienes?</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>¿cómo tener un listado de los elementos?</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>¿cómo etiquetar los elementos?</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>¿cómo crear un conjunto para validación?</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="entrenar-modelo-y-limpiar-datos"><strong>Entrenar modelo y limpiar datos</strong></h3>
+
+<p>Escoger un modelo para entrenar (Learner)</p>
+
+<p>Obtener la matriz de confusión de las predicciones hechas por el modelo (ClassificationInterpretation)</p>
+
+<p>Usar las herramientas de limpieza de fastai (ImageClassifierCleaner)</p>
+
+<h3 id="uso-del-modelo-en-una-aplicación-online"><strong>Uso del modelo en una aplicación online</strong></h3>
+
+<ul>
+  <li>
+    <blockquote>
+      <p>Uso del modelo para inferir:</p>
+    </blockquote>
+  </li>
+</ul>
+
+<!-- end list -->
+
+<ol>
+  <li>
+    <blockquote>
+      <p>exportar el modelo (export)</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>cargar el modelo en la aplicacion (load_learner)</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>usar modelo para hacer predicciones (predict)</p>
+    </blockquote>
+  </li>
+</ol>
+
+<!-- end list -->
+
+<ul>
+  <li>
+    <blockquote>
+      <p>Crear una Notebook app con el modelo usando IPython widgets (ipywidgets) y Voilà</p>
+    </blockquote>
+  </li>
+</ul>
+
+<!-- end list -->
+
+<ul>
+  <li>
+    <blockquote>
+      <p>Pasar el Notebook a aplicación real (Voila)</p>
+    </blockquote>
+  </li>
+</ul>
+
+<!-- end list -->
+
+<ul>
+  <li>
+    <blockquote>
+      <p>Poner el modelo en producción: existen muchas opciones. Usar <a href="https://mybinder.org/"><span class="underline">Binder</span></a> por su sencillez</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="uso-del-modelo-en-una-aplicación-móvil"><strong>Uso del modelo en una aplicación móvil</strong></h3>
+
+<ul>
+  <li>
+    <blockquote>
+      <p>integrar el modelo en la app móvil:</p>
+    </blockquote>
+
+    <ul>
+      <li>
+        <blockquote>
+          <p>existen muchas opciones pero pueden no soportar toda la funcionalidad de fastai o Pytorch</p>
+        </blockquote>
+      </li>
+      <li>
+        <blockquote>
+          <p>será necesario crear una app por tipo de dispositivo (IOS, android,..)</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<!-- end list -->
+
+<ul>
+  <li>
+    <blockquote>
+      <p>implementarlo en el servidor: (recomendado)</p>
+    </blockquote>
+
+    <ul>
+      <li>
+        <blockquote>
+          <p>será necesaria conexión a internet</p>
+        </blockquote>
+      </li>
+      <li>
+        <blockquote>
+          <p>los tiempos de latencia pueden incrementarse</p>
+        </blockquote>
+      </li>
+      <li>
+        <blockquote>
+          <p>puede que use datos sensibles que no se quieran enviar al servidor</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="precauciones-generales">Precauciones generales</h1>
+
+<ul>
+  <li>
+    <blockquote>
+      <p>Considerar que el modelo forma parte de un sistema más grande</p>
+    </blockquote>
+  </li>
+  <li>
+    <blockquote>
+      <p>Mayor dificultad de comprobar el funcionamiento que en una aplicación estándar:</p>
+    </blockquote>
+
+    <ul>
+      <li>
+        <blockquote>
+          <p>datos fuera de dominio (no vistos en el entrenamiento)</p>
+        </blockquote>
+      </li>
+      <li>
+        <blockquote>
+          <p>cambio de dominio (cambia el entorno)</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Solución para minimizar el riesgo:</p>
+</blockquote>
+
+<p><img src="https://juandrh.github.io/blog/assets/img/2021-07-15-Lección02/media/image1.png" alt="" /></p>
+
+<ul>
+  <li>
+    <blockquote>
+      <p>Consecuencias imprevistas, cuidado con los sesgos que retroalimentan el modelo. Considerar el caso en el que el modelo es altamente predictivo y la influencia en el comportamiento.</p>
+    </blockquote>
+  </li>
+</ul>
+
+  </div><a class="u-url" href="/blog/2021/07/15/Lecci%C3%B3n02.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Aprendiendo Inteligencia Artificial a los 50.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/juandrh" title="juandrh"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/juandrh2_0" title="juandrh2_0"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
