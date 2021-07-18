@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://juandrh.github.io/blog/curso_fast.ai/2021/07/04/empezando-el-curso.html</loc>
+<lastmod>2021-07-04T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://juandrh.github.io/blog/2021/07/10/deep-learning-intro.html</loc>
 <lastmod>2021-07-10T00:00:00-05:00</lastmod>
 </url>
@@ -11,10 +15,6 @@
 <url>
 <loc>https://juandrh.github.io/blog/2021/07/16/deep-learning-a-la-web.html</loc>
 <lastmod>2021-07-16T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://juandrh.github.io/blog/curso_fast.ai/2021/07/17/empezando_el_curso.html</loc>
-<lastmod>2021-07-17T00:00:00-05:00</lastmod>
 </url>
 <url>
 <loc>https://juandrh.github.io/blog/about/</loc>
