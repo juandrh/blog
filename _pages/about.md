@@ -12,7 +12,7 @@ Licenciado en C.C. Empresariales, con 20 años de experiencia en administración
 
 {% include info.html text="Me gustaría colaborar en proyectos relacionados con Inteligencia Artificial." %}
 
-**[Visita mi perfil en Linkedin](https://www.linkedin.com/in/juan-del-r%C3%ADo-b9098925/)**
+**[Visita mi perfil en LinkedIn](https://www.linkedin.com/in/juan-del-r%C3%ADo-b9098925/)**
 
 <hr>
 <br>
