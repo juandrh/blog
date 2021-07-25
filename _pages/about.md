@@ -12,7 +12,7 @@ Me gustaría colaborar en proyectos relacionados con Inteligencia Artificial.
 
 {% include info.html text="You can include info boxes" %}
 
-**[Linkedin](https://www.linkedin.com/in/juan-del-r%C3%ADo-b9098925/)**
+**[Visita mi perfil en Linkedin](https://www.linkedin.com/in/juan-del-r%C3%ADo-b9098925/)**
 
 <hr>
 <br>
