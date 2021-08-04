@@ -78,7 +78,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      3 min read
     
 </span></p>
 
@@ -159,6 +159,10 @@ window.onload = wrap_img;
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;15/7 = </span><span class="si">{0}</span><span class="s2"> y es del tipo </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">15</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="mi">15</span><span class="o">/</span><span class="mi">7</span><span class="p">)))</span>  <span class="c1"># división de números  </span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;15//7 = </span><span class="si">%d</span><span class="s2"> y es del tipo </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="mi">15</span><span class="o">//</span><span class="mi">7</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="mi">15</span><span class="o">//</span><span class="mi">7</span><span class="p">)))</span>       <span class="c1"># división de números truncada</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2 elevado a 3 = </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">3</span><span class="p">))</span>       <span class="c1"># Elevar a la potencia</span>
+<span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="o">+</span><span class="mi">3</span><span class="n">j</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La parte imaginaria de 2+3j es&quot;</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">imag</span> <span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="mi">8</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y tiene </span><span class="si">%d</span><span class="s2"> bits&quot;</span><span class="o">%</span><span class="k">y</span>.bit_length())
 </pre></div>
 
     </div>
@@ -175,6 +179,8 @@ window.onload = wrap_img;
 15/7 = 2.142857142857143 y es del tipo &lt;class &#39;float&#39;&gt;
 15//7 = 2 y es del tipo &lt;class &#39;int&#39;&gt;
 2 elevado a 3 = 8
+La parte imaginaria de 2+3j es 3.0
+y tiene 4 bits
 </pre>
 </div>
 </div>
@@ -312,6 +318,42 @@ Valor absoluto = 5
 <pre>Hola Juan
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># intercambio de valores de dos variables</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span><span class="n">a</span>
+<span class="n">a</span><span class="p">,</span><span class="n">b</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(2, 1)</pre>
+</div>
+
 </div>
 
 </div>
@@ -612,6 +654,66 @@ False
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th>Tipo de dato</th>
+<th>Tratamiento en Bool(), If y otros lugares donde se espera Bool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>números</td>
+<td>True, salvo 0</td>
+</tr>
+<tr>
+<td>string,listas,tuplas,etc</td>
+<td>True, salvo cadenas, listas, ... <em>vacias</em></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="s2">&quot;hola&quot;</span><span class="p">))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">))</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>True
+False
+True
+False
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Condicionales">Condicionales<a class="anchor-link" href="#Condicionales"> </a></h2>
 </div>
 </div>
@@ -651,6 +753,286 @@ False
 1 tiene signo positivo
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Listas">Listas<a class="anchor-link" href="#Listas"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">numeros</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">matriz</span> <span class="o">=</span> <span class="p">[</span> 
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]]</span>
+<span class="n">numeros</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">matriz</span> <span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span><span class="n">numeros</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span><span class="n">matriz</span> <span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(4, 3, [2, 3], 3)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">letras</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">letras</span><span class="p">),</span><span class="nb">sorted</span><span class="p">(</span><span class="n">letras</span><span class="p">),</span><span class="nb">sum</span><span class="p">(</span><span class="n">numeros</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">numeros</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(4, [&#39;a&#39;, &#39;b&#39;, &#39;d&#39;, &#39;f&#39;], 10, 4)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">letras</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>  <span class="c1"># añadir un elemento al final</span>
+<span class="n">letras</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;b&#39;, &#39;f&#39;, &#39;d&#39;, &#39;a&#39;, &#39;t&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">letras</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>  <span class="c1"># quitar el últmo elemento </span>
+<span class="n">letras</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;b&#39;, &#39;f&#39;, &#39;d&#39;, &#39;a&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">letras</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">&#39;a&#39;</span> <span class="ow">in</span> <span class="n">letras</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tuplas">Tuplas<a class="anchor-link" href="#Tuplas"> </a></h2><p>No se pueden modificar</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.25</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nos devuelve una tupla&quot;</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">())</span>
+<span class="n">numerador</span><span class="p">,</span> <span class="n">denominador</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="n">numerador</span><span class="p">,</span> <span class="n">denominador</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Nos devuelve una tupla (1, 4)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(1, 4)</pre>
+</div>
+
 </div>
 
 </div>
