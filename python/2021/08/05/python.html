@@ -4,12 +4,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Python | Juan del Río</title>
+<title>Guía básica de Python | Juan del Río</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Python" />
+<meta property="og:title" content="Guía básica de Python" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Guía de referencia básica" />
-<meta property="og:description" content="Guía de referencia básica" />
+<meta name="description" content="Guía de referencia básica del lenguaje Python" />
+<meta property="og:description" content="Guía de referencia básica del lenguaje Python" />
 <link rel="canonical" href="https://juandrh.github.io/blog/python/2021/08/05/python.html" />
 <meta property="og:url" content="https://juandrh.github.io/blog/python/2021/08/05/python.html" />
 <meta property="og:site_name" content="Juan del Río" />
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-08-05T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://juandrh.github.io/blog/python/2021/08/05/python.html","@type":"BlogPosting","headline":"Python","dateModified":"2021-08-05T00:00:00-05:00","datePublished":"2021-08-05T00:00:00-05:00","image":"https://juandrh.github.io/blog/images/python.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://juandrh.github.io/blog/python/2021/08/05/python.html"},"description":"Guía de referencia básica","@context":"https://schema.org"}</script>
+{"url":"https://juandrh.github.io/blog/python/2021/08/05/python.html","@type":"BlogPosting","headline":"Guía básica de Python","dateModified":"2021-08-05T00:00:00-05:00","datePublished":"2021-08-05T00:00:00-05:00","image":"https://juandrh.github.io/blog/images/python.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://juandrh.github.io/blog/python/2021/08/05/python.html"},"description":"Guía de referencia básica del lenguaje Python","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://juandrh.github.io/blog/feed.xml" title="Juan del Río" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -72,7 +72,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Python</h1><p class="page-description">Guía de referencia básica</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-08-05T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Guía básica de Python</h1><p class="page-description">Guía de referencia básica del lenguaje Python</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-08-05T00:00:00-05:00" itemprop="datePublished">
         Aug 5, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -117,9 +117,9 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#Conceptos-básicos">Conceptos básicos </a>
+<li class="toc-entry toc-h2"><a href="#Operadores">Operadores </a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#Orden-de-precedencia-en-operadores-aritméticos:">Orden de precedencia en operadores aritméticos: </a></li>
+<li class="toc-entry toc-h4"><a href="#Orden-de-precedencia">Orden de precedencia </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#Funciones">Funciones </a>
@@ -129,8 +129,12 @@ window.onload = wrap_img;
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#Operadores-lógicos">Operadores lógicos </a></li>
-<li class="toc-entry toc-h2"><a href="#Condicionales">Condicionales </a></li>
-<li class="toc-entry toc-h2"><a href="#Loops">Loops </a></li>
+<li class="toc-entry toc-h2"><a href="#Control-de-flujo">Control de flujo </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Condicionales">Condicionales </a></li>
+<li class="toc-entry toc-h3"><a href="#Loops">Loops </a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#Strings">Strings </a></li>
 <li class="toc-entry toc-h2"><a href="#Estructuras-de-datos-lineales">Estructuras de datos lineales </a>
 <ul>
@@ -181,7 +185,7 @@ window.onload = wrap_img;
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Fuentes:<br>
-<a href="https://www.python.org/doc/">Documentación oficial de Python</a><br>
+<a href="https://docs.python.org/es/3/tutorial/index.html">Tutorial oficial de Python</a><br>
 <a href="https://www.kaggle.com/learn/python">Curso básico de Python en Kaggle</a><br>
 <a href="https://www.udemy.com/share/102hZ42@PkdgfUtTT1IPck5EBkhOfT5u/">Python for Absolute Beginners | Python 3 Complete Course </a></p>
 
@@ -191,9 +195,11 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conceptos-básicos">
-<a class="anchor" href="#Conceptos-b%C3%A1sicos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conceptos básicos<a class="anchor-link" href="#Conceptos-b%C3%A1sicos"> </a>
+<h2 id="Operadores">
+<a class="anchor" href="#Operadores" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operadores<a class="anchor-link" href="#Operadores"> </a>
 </h2>
+<p>+, -, * , / , % ...</p>
+
 </div>
 </div>
 </div>
@@ -251,8 +257,8 @@ y tiene 4 bits
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Orden-de-precedencia-en-operadores-aritméticos:">
-<a class="anchor" href="#Orden-de-precedencia-en-operadores-aritm%C3%A9ticos:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Orden de precedencia en operadores aritméticos:<a class="anchor-link" href="#Orden-de-precedencia-en-operadores-aritm%C3%A9ticos:"> </a>
+<h4 id="Orden-de-precedencia">
+<a class="anchor" href="#Orden-de-precedencia" aria-hidden="true"><span class="octicon octicon-link"></span></a>Orden de precedencia<a class="anchor-link" href="#Orden-de-precedencia"> </a>
 </h4>
 <table>
 <thead>
@@ -913,9 +919,18 @@ False
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Condicionales">
-<a class="anchor" href="#Condicionales" aria-hidden="true"><span class="octicon octicon-link"></span></a>Condicionales<a class="anchor-link" href="#Condicionales"> </a>
+<h2 id="Control-de-flujo">
+<a class="anchor" href="#Control-de-flujo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Control de flujo<a class="anchor-link" href="#Control-de-flujo"> </a>
 </h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Condicionales">
+<a class="anchor" href="#Condicionales" aria-hidden="true"><span class="octicon octicon-link"></span></a>Condicionales<a class="anchor-link" href="#Condicionales"> </a>
+</h3>
 </div>
 </div>
 </div>
@@ -965,9 +980,9 @@ False
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Loops">
+<h3 id="Loops">
 <a class="anchor" href="#Loops" aria-hidden="true"><span class="octicon octicon-link"></span></a>Loops<a class="anchor-link" href="#Loops"> </a>
-</h2>
+</h3>
 </div>
 </div>
 </div>
