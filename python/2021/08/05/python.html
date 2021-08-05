@@ -146,6 +146,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h4"><a href="#Dictionary-comprehensions">Dictionary comprehensions </a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h3"><a href="#Set-(conjunto)">Set (conjunto) </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#Librerias-externas">Librerias externas </a></li>
@@ -697,7 +698,8 @@ maximo(a, b)
 <h3 id="Funcion-Map">
 <a class="anchor" href="#Funcion-Map" aria-hidden="true"><span class="octicon octicon-link"></span></a>Funcion Map<a class="anchor-link" href="#Funcion-Map"> </a>
 </h3>
-<p>map (funcion,iterable)</p>
+<p>map (funcion,iterable)<br>
+Ejecuta una función pasando como atributo un iterable.</p>
 
 </div>
 </div>
@@ -710,24 +712,8 @@ maximo(a, b)
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>   <span class="c1"># en este caso utilizo una función lambda</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -739,12 +725,10 @@ maximo(a, b)
 
 <div class="output_area">
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;map at 0x7fe6b0748340&gt;</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -1980,6 +1964,131 @@ monday
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{'l': 22, 'o': 29, 'r': 22, 'e': 38, 'm': 17, 'i': 42, 'p': 11, 's': 18, 'u': 29, 'd': 19, 't': 32, 'a': 29, 'c': 16, 'n': 24, 'g': 3, 'b': 3, 'q': 5, 'v': 3, 'x': 3, 'h': 1, 'f': 3}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Set-(conjunto)">
+<a class="anchor" href="#Set-(conjunto)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Set (conjunto)<a class="anchor-link" href="#Set-(conjunto)"> </a>
+</h3>
+<p>Es parecido a una lista pero sólo puede tener <strong>valores únicos</strong> e <strong>inmutables</strong> (no admite índices).<br>
+Admite añadir y quitar elementos.<br>
+Admite operaciones de conjuntos (unión, intersección, diferencia)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mi_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">mi_set</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mi_set</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'set'&gt;
+{1, 2, 3, 4}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mi_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mi_set</span><span class="p">)</span>
+<span class="n">mi_set</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mi_set</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{1, 2, 3, 4, 7}
+{1, 3, 4, 7}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s1</span><span class="o">=</span><span class="nb">set</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">s2</span><span class="o">=</span><span class="nb">set</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="o">|</span><span class="n">s2</span><span class="p">)</span>                 <span class="c1"># unión</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">s2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="o">&amp;</span><span class="n">s2</span><span class="p">)</span>                 <span class="c1"># intersección</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">s2</span><span class="p">))</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">s2</span><span class="o">-</span><span class="n">s1</span><span class="p">)</span>                 <span class="c1"># diferencia</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">s1</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{1, 2, 3, 4}
+{1, 2, 3, 4}
+{2}
+{2}
+{3, 4}
+{3, 4}
 </pre>
 </div>
 </div>
