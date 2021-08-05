@@ -157,7 +157,11 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><em>Nota: Puedes ver este post en GitHub o ejecutarlo en Binder o Google Colab, pulsa el icono.</em></p>
+<p></p>
+<div class="flash flash-success">
+    <svg class="octicon octicon-checklist" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 1.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v7.736a.75.75 0 101.5 0V1.75A1.75 1.75 0 0011.25 0h-8.5A1.75 1.75 0 001 1.75v11.5c0 .966.784 1.75 1.75 1.75h3.17a.75.75 0 000-1.5H2.75a.25.25 0 01-.25-.25V1.75zM4.75 4a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zM4 7.75A.75.75 0 014.75 7h2a.75.75 0 010 1.5h-2A.75.75 0 014 7.75zm11.774 3.537a.75.75 0 00-1.048-1.074L10.7 14.145 9.281 12.72a.75.75 0 00-1.062 1.058l1.943 1.95a.75.75 0 001.055.008l4.557-4.45z"></path></svg>
+    <strong>Tip: </strong>Puedes ver este post en GitHub o ejecutarlo en Binder o Google Colab, pulsa el icono.
+</div>
 
 </div>
 </div>
@@ -4485,8 +4489,7 @@ class ndarray(builtins.object)
 <h2 id="Clases">
 <a class="anchor" href="#Clases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clases<a class="anchor-link" href="#Clases"> </a>
 </h2>
-<p>Un objeto combina atributos y métodos. Los objetos se definen con clases.
-En Python todo son objetos.<br></p>
+<p>En Python todo son objetos. Un objeto combina atributos y métodos. Los objetos se definen con clases.</p>
 
 </div>
 </div>
@@ -4608,6 +4611,9 @@ En Python todo son objetos.<br></p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">coche</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">"""  objeto coche"""</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">marca</span><span class="p">,</span><span class="n">modelo</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">marca</span> <span class="o">=</span> <span class="n">marca</span>            <span class="c1"># variables de instancia</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modelo</span> <span class="o">=</span> <span class="n">modelo</span>
     <span class="k">pass</span>
 </pre></div>
 
@@ -4625,10 +4631,43 @@ En Python todo son objetos.<br></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">coche</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">coche</span><span class="p">(</span><span class="s1">'seat'</span><span class="p">,</span><span class="s1">'ibiza'</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">modelo</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'ibiza'</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
