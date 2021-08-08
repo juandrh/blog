@@ -120,6 +120,12 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#1---Recoger-los-datos">1 - Recoger los datos </a></li>
 <li class="toc-entry toc-h2"><a href="#2---Preparar-los-datos">2 - Preparar los datos </a>
 <ul>
+<li class="toc-entry toc-h3"><a href="#2.1--Valores-que-faltan">2.1- Valores que faltan </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#2.1.1---Eliminar-columna">2.1.1 - Eliminar columna </a></li>
+<li class="toc-entry toc-h4"><a href="#2.1.2---Imputación">2.1.2 - Imputación </a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h3"><a href="#Exploración-de-los-datos">Exploración de los datos </a></li>
 </ul>
 </li>
@@ -180,6 +186,83 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.1--Valores-que-faltan">
+<a class="anchor" href="#2.1--Valores-que-faltan" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1- Valores que faltan<a class="anchor-link" href="#2.1--Valores-que-faltan"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.1.1---Eliminar-columna">
+<a class="anchor" href="#2.1.1---Eliminar-columna" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1.1 - Eliminar columna<a class="anchor-link" href="#2.1.1---Eliminar-columna"> </a>
+</h4>
+<p>Para el caso en falten la mayoría de datos de una variable. Sino se puede perder información importante.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols_with_missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">X_train</span><span class="o">.</span><span class="n">columns</span>
+                     <span class="k">if</span> <span class="n">X_train</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()]</span>       <span class="c1"># recopilar columnas con valores que faltan</span>
+<span class="n">reduced_X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">cols_with_missing</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># eliminar columnas con valores que faltan</span>
+<span class="n">reduced_X_valid</span> <span class="o">=</span> <span class="n">X_valid</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">cols_with_missing</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.1.2---Imputación">
+<a class="anchor" href="#2.1.2---Imputaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1.2 - Imputación<a class="anchor-link" href="#2.1.2---Imputaci%C3%B3n"> </a>
+</h4>
+<p>Rellenar los valores faltantes con otro valor, por ejemplo: la media.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+
+<span class="c1"># Imputation</span>
+<span class="n">my_imputer</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">()</span>
+<span class="n">imputed_X_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">my_imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span>
+<span class="n">imputed_X_valid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">my_imputer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_valid</span><span class="p">))</span>
+
+<span class="c1"># Imputation removed column names; put them back</span>
+<span class="n">imputed_X_train</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">imputed_X_valid</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">X_valid</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
