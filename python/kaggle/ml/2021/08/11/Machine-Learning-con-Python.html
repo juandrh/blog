@@ -78,7 +78,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      10 min read
+      13 min read
     
 </span></p>
 
@@ -150,6 +150,19 @@ window.onload = wrap_img;
 </li>
 <li class="toc-entry toc-h3"><a href="#2.5--Fechas">2.5- Fechas </a></li>
 <li class="toc-entry toc-h3"><a href="#2.6--Entradas-de-datos-inconsistentes">2.6- Entradas de datos inconsistentes </a></li>
+<li class="toc-entry toc-h3"><a href="#2.7--Ingeniería-de-datos">2.7- Ingeniería de datos </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#2.7.1--Información-mutua-(Mutual-Information,-MI)">2.7.1- Información mutua (Mutual Information, MI) </a></li>
+<li class="toc-entry toc-h4"><a href="#2.7.2--Creando-nuevas-características">2.7.2- Creando nuevas características </a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#2.7.2.1--Transformaciones-matemáticas">2.7.2.1- Transformaciones matemáticas </a></li>
+<li class="toc-entry toc-h5"><a href="#2.7.2.2---Conteos">2.7.2.2-  Conteos </a></li>
+<li class="toc-entry toc-h5"><a href="#2.7.2.3---Nuevas-variables-a-partir-de-unión-o-separación-de-otras">2.7.2.3-  Nuevas variables a partir de unión o separación de otras </a></li>
+<li class="toc-entry toc-h5"><a href="#2.7.2.4---Transformaciones-de-grupos">2.7.2.4-  Transformaciones de grupos </a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-entry toc-h3"><a href="#Separar-los-datos-para-entrenar-y-validar">Separar los datos para entrenar y validar </a></li>
 </ul>
 </li>
@@ -994,6 +1007,322 @@ window.onload = wrap_img;
     
 <span class="n">replace_matches_in_column</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">professors</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">'Country'</span><span class="p">,</span> <span class="n">string_to_match</span><span class="o">=</span><span class="s2">"south korea"</span><span class="p">)</span>
 <span class="n">countries</span> <span class="o">=</span> <span class="n">professors</span><span class="p">[</span><span class="s1">'Country'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.7--Ingeniería-de-datos">
+<a class="anchor" href="#2.7--Ingenier%C3%ADa-de-datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.7- Ingeniería de datos<a class="anchor-link" href="#2.7--Ingenier%C3%ADa-de-datos"> </a>
+</h3>
+<p>Modificar los datos para mejorar la resolución del problema.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ventajas:</p>
+<ul>
+<li>Mejora del rendimiento en las predicciones</li>
+<li>Disminuye necesidad computacional y de datos</li>
+<li>Mejora la interpretabilidad de los resultados</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.7.1--Información-mutua-(Mutual-Information,-MI)">
+<a class="anchor" href="#2.7.1--Informaci%C3%B3n-mutua-(Mutual-Information,-MI)" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.7.1- Información mutua (Mutual Information, MI)<a class="anchor-link" href="#2.7.1--Informaci%C3%B3n-mutua-(Mutual-Information,-MI)"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Primero crear una métrica que mida la utilidad de cada catracterítica con el objetivo, para luego escoger un conjunto menor con las características mas útiles.
+Para ello podemos usar la métrica <strong>Información mutua</strong> que encuentra relaciones de cualquier tipo entre variables, no sólo lineales como el coeficiente de correlación. 
+Mide el grado que una variable reduce la incertidumbre sobre el objetivo.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">mutual_info_regression</span>
+
+<span class="k">def</span> <span class="nf">make_mi_scores</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">discrete_features</span><span class="p">):</span>
+    <span class="n">mi_scores</span> <span class="o">=</span> <span class="n">mutual_info_regression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">discrete_features</span><span class="o">=</span><span class="n">discrete_features</span><span class="p">)</span>
+    <span class="n">mi_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mi_scores</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"MI Scores"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">mi_scores</span> <span class="o">=</span> <span class="n">mi_scores</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mi_scores</span>
+
+<span class="n">mi_scores</span> <span class="o">=</span> <span class="n">make_mi_scores</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">discrete_features</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_mi_scores</span><span class="p">(</span><span class="n">scores</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">))</span>
+    <span class="n">ticks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">ticks</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Mutual Information Scores"</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plot_mi_scores</span><span class="p">(</span><span class="n">mi_scores</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.7.2--Creando-nuevas-características">
+<a class="anchor" href="#2.7.2--Creando-nuevas-caracter%C3%ADsticas" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.7.2- Creando nuevas características<a class="anchor-link" href="#2.7.2--Creando-nuevas-caracter%C3%ADsticas"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Es importante:</p>
+<ul>
+<li>estudiar bien:<ul>
+<li>las características que tenemos</li>
+<li>el dominio de conocimiento del problema</li>
+<li>trabajos previos</li>
+</ul>
+</li>
+<li>visualizar los datos</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Observaciones:</p>
+<ul>
+<li>Los modelos lineales sólo aprenden sumas y diferencias de forma natural, pero no pueden aprender nada más complejo.</li>
+<li>Los modelos no suelen aprender ratios. Si se usan mejora el rendimiento.</li>
+<li>Modelos lineales y redes neuronales -&gt; normalizar primero</li>
+<li>Los conteos son especialmente útiles en los árboles de decisión</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.7.2.1--Transformaciones-matemáticas">
+<a class="anchor" href="#2.7.2.1--Transformaciones-matem%C3%A1ticas" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.7.2.1- Transformaciones matemáticas<a class="anchor-link" href="#2.7.2.1--Transformaciones-matem%C3%A1ticas"> </a>
+</h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ratios entre variables y totales
+Cambio de rango y de forma: normalización</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.7.2.2---Conteos">
+<a class="anchor" href="#2.7.2.2---Conteos" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.7.2.2-  Conteos<a class="anchor-link" href="#2.7.2.2---Conteos"> </a>
+</h5>
+<p>Pasando a binario las variables (0 - ausencia, 1- presencia)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">roadway_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Amenity"</span><span class="p">,</span> <span class="s2">"Bump"</span><span class="p">,</span> <span class="s2">"Crossing"</span><span class="p">,</span> <span class="s2">"GiveWay"</span><span class="p">,</span>
+    <span class="s2">"Junction"</span><span class="p">,</span> <span class="s2">"NoExit"</span><span class="p">,</span> <span class="s2">"Railway"</span><span class="p">,</span> <span class="s2">"Roundabout"</span><span class="p">,</span> <span class="s2">"Station"</span><span class="p">,</span> <span class="s2">"Stop"</span><span class="p">,</span>
+    <span class="s2">"TrafficCalming"</span><span class="p">,</span> <span class="s2">"TrafficSignal"</span><span class="p">]</span>
+
+<span class="c1"># se crea una nueva variable con el conteo</span>
+<span class="n">accidents</span><span class="p">[</span><span class="s2">"RoadwayFeatures"</span><span class="p">]</span> <span class="o">=</span> <span class="n">accidents</span><span class="p">[</span><span class="n">roadway_features</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># se muestran los 10 primeros casos</span>
+<span class="n">accidents</span><span class="p">[</span><span class="n">roadway_features</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"RoadwayFeatures"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">"Cement"</span><span class="p">,</span> <span class="s2">"BlastFurnaceSlag"</span><span class="p">,</span> <span class="s2">"FlyAsh"</span><span class="p">,</span> <span class="s2">"Water"</span><span class="p">,</span>
+               <span class="s2">"Superplasticizer"</span><span class="p">,</span> <span class="s2">"CoarseAggregate"</span><span class="p">,</span> <span class="s2">"FineAggregate"</span><span class="p">]</span>
+<span class="c1"># se crea una nueva variable con el conteo cuando es mayor que 0 (gt(0))</span>
+<span class="n">concrete</span><span class="p">[</span><span class="s2">"Components"</span><span class="p">]</span> <span class="o">=</span> <span class="n">concrete</span><span class="p">[</span><span class="n">components</span><span class="p">]</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
+<span class="c1"># se muestran los 10 primeros casos</span>
+<span class="n">concrete</span><span class="p">[</span><span class="n">components</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"Components"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.7.2.3---Nuevas-variables-a-partir-de-unión-o-separación-de-otras">
+<a class="anchor" href="#2.7.2.3---Nuevas-variables-a-partir-de-uni%C3%B3n-o-separaci%C3%B3n-de-otras" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.7.2.3-  Nuevas variables a partir de unión o separación de otras<a class="anchor-link" href="#2.7.2.3---Nuevas-variables-a-partir-de-uni%C3%B3n-o-separaci%C3%B3n-de-otras"> </a>
+</h5>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">customer</span><span class="p">[[</span><span class="s2">"Type"</span><span class="p">,</span> <span class="s2">"Level"</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># Crear dos nueva variables</span>
+    <span class="n">customer</span><span class="p">[</span><span class="s2">"ColumnaA"</span><span class="p">]</span>         <span class="c1"># de la variable ColumnaA</span>
+    <span class="o">.</span><span class="n">str</span>                         <span class="c1"># </span>
+    <span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>     <span class="c1"># separando por " "</span>
+                                 <span class="c1"># y expandiendo en columna separadas</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">datos</span><span class="p">[</span><span class="s2">"variable A+B"</span><span class="p">]</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">"variable A"</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"_"</span> <span class="o">+</span> <span class="n">datos</span><span class="p">[</span><span class="s2">"variable B"</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.7.2.4---Transformaciones-de-grupos">
+<a class="anchor" href="#2.7.2.4---Transformaciones-de-grupos" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.7.2.4-  Transformaciones de grupos<a class="anchor-link" href="#2.7.2.4---Transformaciones-de-grupos"> </a>
+</h5>
+<p>Agregando información entre diferentes filas</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">customer</span><span class="p">[</span><span class="s2">"AverageIncome"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">customer</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"State"</span><span class="p">)</span>  <span class="c1"># por cada 'State'</span>
+    <span class="p">[</span><span class="s2">"Income"</span><span class="p">]</span>                 <span class="c1"># seleccionar 'Income'</span>
+    <span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">"mean"</span><span class="p">)</span>         <span class="c1"># y calcula la media (max, min, median, var, std, and count)</span>
+<span class="p">)</span>
+
+<span class="n">customer</span><span class="p">[[</span><span class="s2">"State"</span><span class="p">,</span> <span class="s2">"Income"</span><span class="p">,</span> <span class="s2">"AverageIncome"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">customer</span><span class="p">[</span><span class="s2">"StateFreq"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>      <span class="c1"># para calcular la frecuencia</span>
+    <span class="n">customer</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"State"</span><span class="p">)</span>
+    <span class="p">[</span><span class="s2">"State"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">"count"</span><span class="p">)</span>
+    <span class="o">/</span> <span class="n">customer</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">customer</span><span class="p">[[</span><span class="s2">"State"</span><span class="p">,</span> <span class="s2">"StateFreq"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 
     </div>
