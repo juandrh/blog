@@ -123,7 +123,7 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#Introducción">Introducción </a></li>
+<li class="toc-entry toc-h1"><a href="#-introducci%C3%B3n-"> Introducción </a></li>
 <li class="toc-entry toc-h1"><a href="#Los-pasos-a-seguir-para-obtener-un-software-de-aprendizaje-automático-son:">Los pasos a seguir para obtener un software de aprendizaje automático son: </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#1---Recoger-los-datos">1 - Recoger los datos </a></li>
@@ -149,6 +149,7 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h4"><a href="#Escalado">Escalado </a></li>
 <li class="toc-entry toc-h4"><a href="#Normalizado">Normalizado </a></li>
+<li class="toc-entry toc-h4"><a href="#log-transformation">log transformation </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h3"><a href="#2.5--Fechas">2.5- Fechas </a></li>
@@ -167,6 +168,8 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h4"><a href="#2.7.3--Agrupación-con-K-medias">2.7.3- Agrupación con K-medias </a></li>
 <li class="toc-entry toc-h4"><a href="#2.7.4--Analisis-de-componentes-principales-(PCA)">2.7.4- Analisis de componentes principales (PCA) </a></li>
 <li class="toc-entry toc-h4"><a href="#2.7.5--Codificación-del-objetivo">2.7.5- Codificación del objetivo </a></li>
+<li class="toc-entry toc-h4"><a href="#2.7.6--Variables-polinómicas">2.7.6- Variables polinómicas </a></li>
+<li class="toc-entry toc-h4"><a href="#2.7.7--Binning-transf">2.7.7- Binning transf </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h3"><a href="#Separar-los-datos-para-entrenar-y-validar">Separar los datos para entrenar y validar </a></li>
@@ -224,7 +227,7 @@ window.onload = wrap_img;
 <p></p>
 <div class="flash flash-error">
     <svg class="octicon octicon-alert" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path></svg>
-    <strong>Warning: </strong>Este post se irá actualizando conforme avancen mis conocimientos
+    <strong>Warning: </strong>Iré actualizando este post conforme avancen mis conocimientos
 </div>
 
 </div>
@@ -243,9 +246,48 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introducción">
-<a class="anchor" href="#Introducci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introducción<a class="anchor-link" href="#Introducci%C3%B3n"> </a>
-</h2>
+<p>%%HTML</p>
+<style type="text/css">
+
+div.h1 {
+    font-size: 32px; 
+    margin-bottom:2px;
+    background-color: steelblue; 
+    color: white; 
+    text-align: center;
+}
+div.h2 {
+    background-color: steelblue; 
+    color: white; 
+    padding: 8px; 
+    padding-right: 300px; 
+    font-size: 24px; 
+    max-width: 1500px; 
+    margin-top: 50px;
+    margin-bottom:4px;
+
+}
+div.h3 {
+    color: steelblue; 
+    font-size: 20px; 
+    margin-top: 4px; 
+    margin-bottom:8px;
+}
+div.h4 {
+    font-size: 15px; 
+    margin-top: 20px; 
+    margin-bottom: 8px;
+}
+
+</style>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1>
+<a class="anchor" href="#-introducci%C3%B3n-" aria-hidden="true"><span class="octicon octicon-link"></span></a> Introducción </h1>
 </div>
 </div>
 </div>
@@ -1069,6 +1111,27 @@ El un software altamente dependiente de datos.</p>
 </div>
     
 
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">numerical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">useful_features</span> <span class="k">if</span> <span class="s1">'cont'</span> <span class="ow">in</span> <span class="n">col</span><span class="p">]</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">xtrain</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">xtrain</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">])</span>
+<span class="n">xvalid</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">xvalid</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">])</span>
+<span class="n">xtest</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">xtest</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1102,6 +1165,51 @@ El un software altamente dependiente de datos.</p>
 <span class="c1"># normalizar con Box-Cox</span>
 <span class="n">norm_valores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">boxcox</span><span class="p">(</span><span class="n">valores_positivos</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> 
                                <span class="n">name</span><span class="o">=</span><span class="s1">'columnaA'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">valores_positivos</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">normalizer</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">Normalizer</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="log-transformation">
+<a class="anchor" href="#log-transformation" aria-hidden="true"><span class="octicon octicon-link"></span></a>log transformation<a class="anchor-link" href="#log-transformation"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numerical_cols</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+    <span class="n">df_test</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -1871,6 +1979,89 @@ PCA nos dice la cantidad de variación de cada componente.</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.7.6--Variables-polinómicas">
+<a class="anchor" href="#2.7.6--Variables-polin%C3%B3micas" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.7.6- Variables polinómicas<a class="anchor-link" href="#2.7.6--Variables-polin%C3%B3micas"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">poly</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">interaction_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">train_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">])</span>
+<span class="n">test_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">])</span>
+
+<span class="n">df_poly</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">train_poly</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"poly_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">train_poly</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+<span class="n">df_test_poly</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">test_poly</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"poly_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">test_poly</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.7.7--Binning-transf">
+<a class="anchor" href="#2.7.7--Binning-transf" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.7.7- Binning transf<a class="anchor-link" href="#2.7.7--Binning-transf"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">quantile_list</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.75</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">quantile</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">'cont0'</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">quantile_list</span><span class="p">)</span>
+<span class="n">quantile</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">quantile_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'0-25Q'</span><span class="p">,</span> <span class="s1">'25-50Q'</span><span class="p">,</span> <span class="s1">'50-75Q'</span><span class="p">,</span> <span class="s1">'75-100Q'</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'cont0_quantile_range'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span>
+                                            <span class="n">df</span><span class="p">[</span><span class="s1">'cont0'</span><span class="p">],</span> 
+                                            <span class="n">q</span><span class="o">=</span><span class="n">quantile_list</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'cont0_quantile_label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span>
+                                            <span class="n">df</span><span class="p">[</span><span class="s1">'cont0'</span><span class="p">],</span> 
+                                            <span class="n">q</span><span class="o">=</span><span class="n">quantile_list</span><span class="p">,</span>       
+                                            <span class="n">labels</span><span class="o">=</span><span class="n">quantile_labels</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Separar-los-datos-para-entrenar-y-validar">
 <a class="anchor" href="#Separar-los-datos-para-entrenar-y-validar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Separar los datos para entrenar y validar<a class="anchor-link" href="#Separar-los-datos-para-entrenar-y-validar"> </a>
 </h3>
@@ -1916,6 +2107,25 @@ PCA nos dice la cantidad de variación de cada componente.</p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>  <span class="c1"># RandomForestRegressor</span>
 
 <span class="n">modelo</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># escogemos el modelo Árbol de decisión</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>    <span class="c1"># XGBoost</span>
+
+<span class="n">modelo</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">()</span>
 </pre></div>
 
     </div>
