@@ -78,7 +78,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      17 min read
+      23 min read
     
 </span></p>
 
@@ -130,6 +130,12 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#2---Preparar-los-datos">2 - Preparar los datos </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#2.1---Exploración-de-los-datos">2.1 - Exploración de los datos </a></li>
+<li class="toc-entry toc-h3"><a href="#Visualización">Visualización </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Distribución-del-objetivo">Distribución del objetivo </a></li>
+<li class="toc-entry toc-h4"><a href="#Separar-las-columnas-de-variables-categóricas-y-numéricas">Separar las columnas de variables categóricas y numéricas </a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h3"><a href="#2.2--Tratamiento-de-valores-que-faltan">2.2- Tratamiento de valores que faltan </a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#2.2.1---Eliminar-columna">2.2.1 - Eliminar columna </a></li>
@@ -137,11 +143,25 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h4"><a href="#2.2.3---Extensión-de-Imputación">2.2.3 - Extensión de Imputación </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#2.3.--Variables-categóricas">2.3.- Variables categóricas </a>
+<li class="toc-entry toc-h3"><a href="#2.3.--Variables-numéricas-y-categóricas">2.3.- Variables numéricas y categóricas </a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#2.3.1--Eliminar-columna">2.3.1- Eliminar columna </a></li>
-<li class="toc-entry toc-h4"><a href="#2.3.2--Codificación-ordinal">2.3.2- Codificación ordinal </a></li>
-<li class="toc-entry toc-h4"><a href="#2.3.3--Codificación-One-Hot">2.3.3- Codificación One-Hot </a></li>
+<li class="toc-entry toc-h4"><a href="#2.3.1.--Variables-numéricas">2.3.1.- Variables numéricas </a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#2.3.1.1--Tirar-variables-de-baja-varianza">2.3.1.1- Tirar variables de baja varianza </a></li>
+<li class="toc-entry toc-h5"><a href="#2.3.1.2--Hacer-que-sus-datos-sean-más-gaussianos">2.3.1.2- Hacer que sus datos sean más gaussianos </a></li>
+<li class="toc-entry toc-h5"><a href="#2.3.1.3--Capturar-valores-atípicos">2.3.1.3- Capturar valores atípicos </a></li>
+<li class="toc-entry toc-h5"><a href="#2.3.1.4--Normalizar-todos-los-valores-si-se-va-a-usar-una-red-neronal">2.3.1.4- Normalizar todos los valores si se va a usar una red neronal </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h4"><a href="#2.3.2.--Variables-categóricas">2.3.2.- Variables categóricas </a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#2.3.2.1--Eliminar-columna">2.3.2.1- Eliminar columna </a></li>
+<li class="toc-entry toc-h5"><a href="#2.3.2.2---Codificación-ordinal">2.3.2.2 - Codificación ordinal </a></li>
+<li class="toc-entry toc-h5"><a href="#2.3.2.3--Codificación-One-Hot">2.3.2.3- Codificación One-Hot </a></li>
+<li class="toc-entry toc-h5"><a href="#2.3.2.4--Laber-encoder">2.3.2.4- Laber encoder </a></li>
+<li class="toc-entry toc-h5"><a href="#2.3.2.5--Embedding-layer">2.3.2.5- Embedding layer </a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-entry toc-h3"><a href="#2.3--Codificaciones-de-caracteres">2.3- Codificaciones de caracteres </a></li>
@@ -238,48 +258,10 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Fuentes:<br>
 <a href="https://www.kaggle.com/learn">Cursos Machine Learning - Kaggle</a><br>
-<a href="https://www.youtube.com/playlist?list=PL6kQim6ljTJsmPM_v_b2p8p-GPQhtoekI">MOOC - Aprendizaje automático - UPV</a></p>
+<a href="https://www.youtube.com/playlist?list=PL6kQim6ljTJsmPM_v_b2p8p-GPQhtoekI">MOOC - Aprendizaje automático - UPV</a><br> 
+<a href="https://www.kaggle.com/lucamassaron/tutorial-tensorflow-2-x-for-tabular-data">Tutorial TensorFlow 2.x For Tabular Data - Luca Massaron</a><br>
+<a href="https://www.kaggle.com/maximkazantsev/30dml-eda-xgboost">EDA + XGBoost with Folds - Maxim Kazantsev</a><br></p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>%%HTML</p>
-<style type="text/css">
-
-div.h1 {
-    font-size: 32px; 
-    margin-bottom:2px;
-    background-color: steelblue; 
-    color: white; 
-    text-align: center;
-}
-div.h2 {
-    background-color: steelblue; 
-    color: white; 
-    padding: 8px; 
-    padding-right: 300px; 
-    font-size: 24px; 
-    max-width: 1500px; 
-    margin-top: 50px;
-    margin-bottom:4px;
-
-}
-div.h3 {
-    color: steelblue; 
-    font-size: 20px; 
-    margin-top: 4px; 
-    margin-bottom:8px;
-}
-div.h4 {
-    font-size: 15px; 
-    margin-top: 20px; 
-    margin-bottom: 8px;
-}
-
-</style>
 </div>
 </div>
 </div>
@@ -597,6 +579,437 @@ El un software altamente dependiente de datos.</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Visualización">
+<a class="anchor" href="#Visualizaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visualización<a class="anchor-link" href="#Visualizaci%C3%B3n"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"lightcoral"</span><span class="p">,</span> <span class="s2">"sandybrown"</span><span class="p">,</span> <span class="s2">"darkorange"</span><span class="p">,</span> <span class="s2">"mediumseagreen"</span><span class="p">,</span>
+          <span class="s2">"lightseagreen"</span><span class="p">,</span> <span class="s2">"cornflowerblue"</span><span class="p">,</span> <span class="s2">"mediumpurple"</span><span class="p">,</span> <span class="s2">"palevioletred"</span><span class="p">,</span>
+          <span class="s2">"lightskyblue"</span><span class="p">,</span> <span class="s2">"sandybrown"</span><span class="p">,</span> <span class="s2">"yellowgreen"</span><span class="p">,</span> <span class="s2">"indianred"</span><span class="p">,</span>
+          <span class="s2">"lightsteelblue"</span><span class="p">,</span> <span class="s2">"mediumorchid"</span><span class="p">,</span> <span class="s2">"deepskyblue"</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">pie</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pie</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)],</span>
+             <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Train dataset"</span><span class="p">,</span> <span class="s2">"Test dataset"</span><span class="p">],</span>
+             <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s2">"salmon"</span><span class="p">,</span> <span class="s2">"teal"</span><span class="p">],</span>
+             <span class="n">textprops</span><span class="o">=</span><span class="p">{</span><span class="s2">"fontsize"</span><span class="p">:</span> <span class="mi">15</span><span class="p">},</span>
+             <span class="n">autopct</span><span class="o">=</span><span class="s1">'</span><span class="si">%1.1f%%</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Dataset length comparison"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">'white'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Distribución-del-objetivo">
+<a class="anchor" href="#Distribuci%C3%B3n-del-objetivo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Distribución del objetivo<a class="anchor-link" href="#Distribuci%C3%B3n-del-objetivo"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s2">"target"</span><span class="p">],</span>
+               <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+               <span class="n">color</span><span class="o">=</span><span class="s2">"palevioletred"</span><span class="p">,</span>
+               <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Target distribution"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Amount of values"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Target value"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">margins</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Separar-las-columnas-de-variables-categóricas-y-numéricas">
+<a class="anchor" href="#Separar-las-columnas-de-variables-categ%C3%B3ricas-y-num%C3%A9ricas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Separar las columnas de variables categóricas y numéricas<a class="anchor-link" href="#Separar-las-columnas-de-variables-categ%C3%B3ricas-y-num%C3%A9ricas"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cat_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"cat"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">num_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"cont"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">14</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train</span><span class="p">[</span><span class="n">num_features</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="n">num_features</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Calculating required amount of rows to display all feature plots</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">//</span> <span class="n">cols</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="n">rows</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Adding some distance between plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Plots counter</span>
+<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span> <span class="c1"># If there is no more data columns to make plots from</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># Hiding axes so there will be clean background</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Train data histogram</span>
+            <span class="n">hist1</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                   <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                                          <span class="n">df</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+                                   <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                                   <span class="n">color</span><span class="o">=</span><span class="s2">"deepskyblue"</span><span class="p">,</span>
+                                   <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+                                   <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                                   <span class="n">label</span><span class="o">=</span><span class="s2">"Train Dataset"</span><span class="p">)</span>
+            <span class="c1"># Test data histogram</span>
+            <span class="n">hist2</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                   <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                                          <span class="n">df</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+                                   <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                                   <span class="n">color</span><span class="o">=</span><span class="s2">"palevioletred"</span><span class="p">,</span>
+                                   <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+                                   <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                                   <span class="n">label</span><span class="o">=</span><span class="s2">"Test Dataset"</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+                                  
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+<span class="c1"># plt.suptitle("Numerical feature values distribution in both datasets", y=0.99)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train</span><span class="p">[</span><span class="n">cat_features</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="n">cat_features</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Calculating required amount of rows to display all feature plots</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">//</span> <span class="n">cols</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="n">rows</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Adding some distance between plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+
+<span class="c1"># Plots counter</span>
+<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cat_features</span><span class="p">):</span> <span class="c1"># If there is no more data columns to make plots from</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># Hiding axes so there will be clean background</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">values</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cat_features</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
+            <span class="n">bars_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">:</span>
+                <span class="n">height</span><span class="o">=</span><span class="mf">0.1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">height</span><span class="o">=</span><span class="mf">0.3</span>
+
+            <span class="n">bars1</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">bars_pos</span><span class="o">+</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+                                   <span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="n">cat_features</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">==</span><span class="n">x</span><span class="p">][</span><span class="n">cat_features</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">values</span><span class="p">],</span>
+                                   <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
+                                   <span class="n">color</span><span class="o">=</span><span class="s2">"teal"</span><span class="p">,</span>
+                                   <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+                                   <span class="n">label</span><span class="o">=</span><span class="s2">"Train Dataset"</span><span class="p">)</span>
+            <span class="n">bars2</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">bars_pos</span><span class="o">-</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+                                   <span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="n">cat_features</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">==</span><span class="n">x</span><span class="p">][</span><span class="n">cat_features</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">values</span><span class="p">],</span>
+                                   <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
+                                   <span class="n">color</span><span class="o">=</span><span class="s2">"salmon"</span><span class="p">,</span>
+                                   <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+                                   <span class="n">label</span><span class="o">=</span><span class="s2">"Test Dataset"</span><span class="p">)</span>
+            <span class="n">y_labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">cat_features</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s2">"id"</span><span class="p">])</span><span class="o">+</span><span class="mi">50</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">bars_pos</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">y_labels</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">margins</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+                                  
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+
+<span class="c1">#plt.suptitle("Categorical feature values distribution in both datasets", y=0.99)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Check if the datasets have different amount of categories in categorical features</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bars_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat_features</span><span class="p">))</span>
+
+<span class="n">width</span><span class="o">=</span><span class="mf">0.3</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="c1"># Making two bar objects. One is on the left from bar position and the other one is on the right</span>
+<span class="n">bars1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bars_pos</span><span class="o">-</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+               <span class="n">train</span><span class="p">[</span><span class="n">cat_features</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+               <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+               <span class="n">color</span><span class="o">=</span><span class="s2">"darkorange"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
+<span class="n">bars2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bars_pos</span><span class="o">+</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+               <span class="n">train</span><span class="p">[</span><span class="n">cat_features</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+               <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+               <span class="n">color</span><span class="o">=</span><span class="s2">"steelblue"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Amount of values in categorical features"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Categorical feature"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Amount of values"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">bars_pos</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">cat_features</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">margins</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Checking if test data doesn't contain categories that are not present in the train dataset</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cat_features</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>feature correlation.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Encoding categorical features with OrdinalEncoder</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cat_features</span><span class="p">:</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">OrdinalEncoder</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Calculatin correlation values</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Mask to hide upper-right part of plot as it is a duplicate</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Making a plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdBu"</span><span class="p">,</span> <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="s2">"normal"</span><span class="p">,</span> <span class="s2">"fontsize"</span><span class="p">:</span><span class="mi">9</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Feature correlation heatmap"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+         <span class="n">rotation_mode</span><span class="o">=</span><span class="s2">"anchor"</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"normal"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"normal"</span><span class="p">,</span>
+         <span class="n">rotation_mode</span><span class="o">=</span><span class="s2">"anchor"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">feature</span> <span class="n">vs</span> <span class="n">target</span><span class="o">.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"target"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Calculating required amount of rows to display all feature plots</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">//</span> <span class="n">cols</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="n">rows</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Adding some distance between plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scatter</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                        <span class="n">train</span><span class="p">[</span><span class="s2">"target"</span><span class="p">],</span>
+                                        <span class="n">color</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">colors</span><span class="p">))</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+                                  
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+<span class="c1"># plt.suptitle("Features vs target", y=0.99)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="2.2--Tratamiento-de-valores-que-faltan">
 <a class="anchor" href="#2.2--Tratamiento-de-valores-que-faltan" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2- Tratamiento de valores que faltan<a class="anchor-link" href="#2.2--Tratamiento-de-valores-que-faltan"> </a>
 </h3>
@@ -633,6 +1046,23 @@ El un software altamente dependiente de datos.</p>
 
 <span class="c1"># percent of data that is missing</span>
 <span class="n">percent_missing</span> <span class="o">=</span> <span class="p">(</span><span class="n">total_missing</span><span class="o">/</span><span class="n">total_cells</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">test</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="c1"># Checking if there are missing values in the datasets</span>
 </pre></div>
 
     </div>
@@ -796,10 +1226,114 @@ El un software altamente dependiente de datos.</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.3.--Variables-categóricas">
-<a class="anchor" href="#2.3.--Variables-categ%C3%B3ricas" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.- Variables categóricas<a class="anchor-link" href="#2.3.--Variables-categ%C3%B3ricas"> </a>
+<h3 id="2.3.--Variables-numéricas-y-categóricas">
+<a class="anchor" href="#2.3.--Variables-num%C3%A9ricas-y-categ%C3%B3ricas" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.- Variables numéricas y categóricas<a class="anchor-link" href="#2.3.--Variables-num%C3%A9ricas-y-categ%C3%B3ricas"> </a>
 </h3>
 <p>Toman un número limitado de valores. Necesitan ser preprocesados antes de usarlos en los modelos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.3.1.--Variables-numéricas">
+<a class="anchor" href="#2.3.1.--Variables-num%C3%A9ricas" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.1.- Variables numéricas<a class="anchor-link" href="#2.3.1.--Variables-num%C3%A9ricas"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.3.1.1--Tirar-variables-de-baja-varianza">
+<a class="anchor" href="#2.3.1.1--Tirar-variables-de-baja-varianza" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.1.1- Tirar variables de baja varianza<a class="anchor-link" href="#2.3.1.1--Tirar-variables-de-baja-varianza"> </a>
+</h5>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">VarianceThreshold</span>
+<span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+<span class="n">selector</span> <span class="o">=</span> <span class="n">VarianceThreshold</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">selector</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.3.1.2--Hacer-que-sus-datos-sean-más-gaussianos">
+<a class="anchor" href="#2.3.1.2--Hacer-que-sus-datos-sean-m%C3%A1s-gaussianos" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.1.2- Hacer que sus datos sean más gaussianos<a class="anchor-link" href="#2.3.1.2--Hacer-que-sus-datos-sean-m%C3%A1s-gaussianos"> </a>
+</h5>
+<p>Transformar las variables utilizando información de cuantiles extendiendo los valores más frecuentes y reducción del impacto de los valores atípicos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">QuantileTransformer</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">chisquare</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">qt</span> <span class="o">=</span> <span class="n">QuantileTransformer</span><span class="p">(</span><span class="n">n_quantiles</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">output_distribution</span><span class="o">=</span><span class="s1">'normal'</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Xt</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.3.1.3--Capturar-valores-atípicos">
+<a class="anchor" href="#2.3.1.3--Capturar-valores-at%C3%ADpicos" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.1.3- Capturar valores atípicos<a class="anchor-link" href="#2.3.1.3--Capturar-valores-at%C3%ADpicos"> </a>
+</h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.3.1.4--Normalizar-todos-los-valores-si-se-va-a-usar-una-red-neronal">
+<a class="anchor" href="#2.3.1.4--Normalizar-todos-los-valores-si-se-va-a-usar-una-red-neronal" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.1.4- Normalizar todos los valores si se va a usar una red neronal<a class="anchor-link" href="#2.3.1.4--Normalizar-todos-los-valores-si-se-va-a-usar-una-red-neronal"> </a>
+</h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.3.2.--Variables-categóricas">
+<a class="anchor" href="#2.3.2.--Variables-categ%C3%B3ricas" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2.- Variables categóricas<a class="anchor-link" href="#2.3.2.--Variables-categ%C3%B3ricas"> </a>
+</h4>
+<p>Toman un número limitado de valores. Necesitan ser preprocesados antes de usarlos en los modelos.<br></p>
+<p>Variables Ordinales -&gt; deja la variable como está y añade otra con One-Hot encoding (atraparás efectos ordinales lineales y no lineales) <br>
+Variables baja cardinalidad (2-255) -&gt; usar One-hot encoding
+Variables alta cardinalidad (+ 255) -&gt; usar Label encoding + capa de incrustación(embedding layer) si se usa red neuronal.</p>
 
 </div>
 </div>
@@ -876,9 +1410,9 @@ El un software altamente dependiente de datos.</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="2.3.1--Eliminar-columna">
-<a class="anchor" href="#2.3.1--Eliminar-columna" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.1- Eliminar columna<a class="anchor-link" href="#2.3.1--Eliminar-columna"> </a>
-</h4>
+<h5 id="2.3.2.1--Eliminar-columna">
+<a class="anchor" href="#2.3.2.1--Eliminar-columna" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2.1- Eliminar columna<a class="anchor-link" href="#2.3.2.1--Eliminar-columna"> </a>
+</h5>
 <p>Sólo es buena opción si la columna no tiene información útil.</p>
 
 </div>
@@ -905,9 +1439,9 @@ El un software altamente dependiente de datos.</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="2.3.2--Codificación-ordinal">
-<a class="anchor" href="#2.3.2--Codificaci%C3%B3n-ordinal" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2- Codificación ordinal<a class="anchor-link" href="#2.3.2--Codificaci%C3%B3n-ordinal"> </a>
-</h4>
+<h5 id="2.3.2.2---Codificación-ordinal">
+<a class="anchor" href="#2.3.2.2---Codificaci%C3%B3n-ordinal" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2.2 - Codificación ordinal<a class="anchor-link" href="#2.3.2.2---Codificaci%C3%B3n-ordinal"> </a>
+</h5>
 <p>Asigna un entero a cada valor único. Asume un orden en las categorías. Variables ordinales.</p>
 
 </div>
@@ -944,9 +1478,9 @@ El un software altamente dependiente de datos.</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="2.3.3--Codificación-One-Hot">
-<a class="anchor" href="#2.3.3--Codificaci%C3%B3n-One-Hot" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.3- Codificación <em>One-Hot</em><a class="anchor-link" href="#2.3.3--Codificaci%C3%B3n-One-Hot"> </a>
-</h4>
+<h5 id="2.3.2.3--Codificación-One-Hot">
+<a class="anchor" href="#2.3.2.3--Codificaci%C3%B3n-One-Hot" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2.3- Codificación <em>One-Hot</em><a class="anchor-link" href="#2.3.2.3--Codificaci%C3%B3n-One-Hot"> </a>
+</h5>
 <p>Crea una columna por cada valor único e indica la presencia o no de ese valor. No asume un orden en las categorías. Variables nominales. No funciona bien si hay muchas categorias. Usar si hay 15 como máximo.</p>
 <ul>
 <li>handle_unknown='ignore': para evitar errores cuando los datos de validación contienen clases que no están representadas en los datos de entrenamiento </li>
@@ -1007,6 +1541,65 @@ El un software altamente dependiente de datos.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.3.2.4--Laber-encoder">
+<a class="anchor" href="#2.3.2.4--Laber-encoder" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2.4- Laber encoder<a class="anchor-link" href="#2.3.2.4--Laber-encoder"> </a>
+</h5>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'col1'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'red color'</span><span class="p">,</span> <span class="s1">'blue color'</span><span class="p">,</span> <span class="s1">'green color'</span><span class="p">]})</span>
+<span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'col1'</span><span class="p">])</span>
+<span class="n">dictionary_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="2.3.2.5--Embedding-layer">
+<a class="anchor" href="#2.3.2.5--Embedding-layer" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2.5- Embedding layer<a class="anchor-link" href="#2.3.2.5--Embedding-layer"> </a>
+</h5>
+<p>Entre el preprocesado y el resto de capas de la red neuronal.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1191,6 +1784,27 @@ El un software altamente dependiente de datos.</p>
 </div>
     
 
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">RobustScaler</span>
+<span class="n">X</span> <span class="o">=</span>  <span class="p">[[</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.</span><span class="p">,</span>  <span class="mf">2.</span><span class="p">],</span> <span class="p">[</span> <span class="o">-</span><span class="mf">2.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">,</span>  <span class="mf">3.</span><span class="p">],</span> <span class="p">[</span> <span class="mf">4.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.</span><span class="p">]]</span>
+<span class="n">rsc</span><span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
+<span class="n">rsc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1285,6 +1899,66 @@ El un software altamente dependiente de datos.</p>
 <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">([</span><span class="n">date_lengths</span> <span class="o">==</span> <span class="mi">24</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'Indices con datos corruptos:'</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
 <span class="n">datos</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using the type datetime64, you can easily extract the time parts</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'col1'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'02/03/2017'</span><span class="p">,</span> <span class="s1">'02/04/2017'</span><span class="p">,</span> <span class="s1">'02/05/2017’]})</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'col1'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'col1'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'datetime64[ns]'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">col1</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">col1</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">col1</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">weekofyear</span><span class="p">,</span>\
+<span class="n">df</span><span class="o">.</span><span class="n">col1</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">col1</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofyear</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">col1</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using sine and cosine transformations, create periodic features</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'col1'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'02/03/2017'</span><span class="p">,</span> <span class="s1">'02/04/2017'</span><span class="p">,</span> <span class="s1">'02/05/2017'</span><span class="p">]})</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'col1'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'col1'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'datetime64[ns]'</span><span class="p">)</span>
+<span class="n">cycle</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'weekday_sin'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">'col1'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span> <span class="o">/</span> <span class="n">cycle</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'weekday_cos'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">'col1'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span> <span class="o">/</span> <span class="n">cycle</span><span class="p">)</span>
 </pre></div>
 
     </div>
