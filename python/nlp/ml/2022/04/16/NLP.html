@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>NLP | Juan del Río</title>
+<title>1- NLP with Classification and Vector Spaces | Juan del Río</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="NLP" />
+<meta property="og:title" content="1- NLP with Classification and Vector Spaces" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Procesamiento del lenguaje natural" />
 <meta property="og:description" content="Procesamiento del lenguaje natural" />
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-04-16T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://juandrh.github.io/blog/python/nlp/ml/2022/04/16/NLP.html","@type":"BlogPosting","headline":"NLP","dateModified":"2022-04-16T00:00:00-05:00","datePublished":"2022-04-16T00:00:00-05:00","image":"https://juandrh.github.io/blog/images/framework.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://juandrh.github.io/blog/python/nlp/ml/2022/04/16/NLP.html"},"description":"Procesamiento del lenguaje natural","@context":"https://schema.org"}</script>
+{"url":"https://juandrh.github.io/blog/python/nlp/ml/2022/04/16/NLP.html","@type":"BlogPosting","headline":"1- NLP with Classification and Vector Spaces","dateModified":"2022-04-16T00:00:00-05:00","datePublished":"2022-04-16T00:00:00-05:00","image":"https://juandrh.github.io/blog/images/framework.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://juandrh.github.io/blog/python/nlp/ml/2022/04/16/NLP.html"},"description":"Procesamiento del lenguaje natural","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://juandrh.github.io/blog/feed.xml" title="Juan del Río" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -72,7 +72,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">NLP</h1><p class="page-description">Procesamiento del lenguaje natural</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-04-16T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">1- NLP with Classification and Vector Spaces</h1><p class="page-description">Procesamiento del lenguaje natural</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-04-16T00:00:00-05:00" itemprop="datePublished">
         Apr 16, 2022
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -123,15 +123,11 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#Sentiment-Analysis-with-Logistic-Regression">Sentiment Analysis with Logistic Regression </a>
+<li class="toc-entry toc-h1"><a href="#1.1--Sentiment-Analysis-with-Logistic-Regression">1.1- Sentiment Analysis with Logistic Regression </a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#Supervised-ML-&-Sentiment-Analysis">Supervised ML &amp; Sentiment Analysis </a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#Preprocessing">Preprocessing </a></li>
-<li class="toc-entry toc-h3"><a href="#Feature-Extraction">Feature Extraction </a></li>
-<li class="toc-entry toc-h3"><a href="#Table-of-word-counts">Table of word counts </a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#Preprocessing">Preprocessing </a></li>
+<li class="toc-entry toc-h2"><a href="#Feature-Extraction">Feature Extraction </a></li>
+<li class="toc-entry toc-h2"><a href="#Table-of-word-counts">Table of word counts </a></li>
 <li class="toc-entry toc-h2"><a href="#Logistic-Regression">Logistic Regression </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Test">Test </a></li>
@@ -160,8 +156,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Sentiment-Analysis-with-Logistic-Regression">
-<a class="anchor" href="#Sentiment-Analysis-with-Logistic-Regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sentiment Analysis with Logistic Regression<a class="anchor-link" href="#Sentiment-Analysis-with-Logistic-Regression"> </a>
+<h1 id="1.1--Sentiment-Analysis-with-Logistic-Regression">
+<a class="anchor" href="#1.1--Sentiment-Analysis-with-Logistic-Regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>1.1- Sentiment Analysis with Logistic Regression<a class="anchor-link" href="#1.1--Sentiment-Analysis-with-Logistic-Regression"> </a>
 </h1>
 </div>
 </div>
@@ -169,18 +165,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Supervised-ML-&amp;-Sentiment-Analysis">
-<a class="anchor" href="#Supervised-ML-&amp;-Sentiment-Analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supervised ML &amp; Sentiment Analysis<a class="anchor-link" href="#Supervised-ML-&amp;-Sentiment-Analysis"> </a>
-</h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Preprocessing">
+<h2 id="Preprocessing">
 <a class="anchor" href="#Preprocessing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preprocessing<a class="anchor-link" href="#Preprocessing"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
@@ -656,9 +643,9 @@ Punctuation
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Feature-Extraction">
+<h2 id="Feature-Extraction">
 <a class="anchor" href="#Feature-Extraction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Feature Extraction<a class="anchor-link" href="#Feature-Extraction"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
@@ -943,9 +930,9 @@ len(freqs) = 13172
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Table-of-word-counts">
+<h2 id="Table-of-word-counts">
 <a class="anchor" href="#Table-of-word-counts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of word counts<a class="anchor-link" href="#Table-of-word-counts"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
