@@ -78,7 +78,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      28 min read
+      29 min read
     
 </span></p>
 
@@ -2339,6 +2339,7 @@ len(freqs) = 13172
 
         <span class="c1"># update the weights theta</span>
         <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="n">m</span>  <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">h</span><span class="o">-</span><span class="n">y</span><span class="p">))</span> 
+        <span class="c1">#print(f"iter: {i}")</span>
         
     <span class="n">J</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">J</span><span class="p">,</span> <span class="n">theta</span>
@@ -2380,11 +2381,42 @@ len(freqs) = 13172
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_x</span><span class="o">=</span> <span class="n">tweets</span><span class="p">[:</span><span class="mi">8000</span><span class="p">]</span>
-<span class="n">train_y</span><span class="o">=</span> <span class="n">labels</span><span class="p">[:</span><span class="mi">8000</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_x</span><span class="o">=</span> <span class="n">tweets</span><span class="p">[:</span><span class="mi">8000</span><span class="p">]</span>  
+<span class="n">train_y</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">[:</span><span class="mi">8000</span><span class="p">]),(</span><span class="mi">8000</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"train_y.shape = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">train_y</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>train_y.shape = (8000, 1)
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -2406,12 +2438,27 @@ len(freqs) = 13172
 <span class="n">Y</span> <span class="o">=</span> <span class="n">train_y</span>
 
 <span class="c1"># Apply gradient descent</span>
-<span class="n">J</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">gradientDescent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
+<span class="n">J</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">gradientDescent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="mi">2900</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The cost after training is </span><span class="si">{</span><span class="n">J</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The resulting vector of weights is </span><span class="si">{</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">theta</span><span class="p">)]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The cost after training is 0.13893911.
+The resulting vector of weights is [1.8e-07, 0.00081903, -0.00063131]
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -2502,6 +2549,26 @@ len(freqs) = 13172
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>I am happy -&gt; 0.539381
+I am bad -&gt; 0.492165
+this movie should have been great. -&gt; 0.532825
+great -&gt; 0.531703
+great great -&gt; 0.563153
+great great great -&gt; 0.594103
+great great great great -&gt; 0.624323
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     
 
@@ -2579,6 +2646,20 @@ len(freqs) = 13172
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Logistic regression model's accuracy = 0.9910
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     
 
@@ -2609,6 +2690,22 @@ len(freqs) = 13172
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>['ridicul', 'bright', 'movi', 'plot', 'terribl', 'sad', 'end']
+[[0.47824272]]
+Negative sentiment
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
