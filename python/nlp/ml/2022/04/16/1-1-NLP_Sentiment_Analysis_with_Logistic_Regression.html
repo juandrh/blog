@@ -78,7 +78,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      24 min read
+      28 min read
     
 </span></p>
 
@@ -135,6 +135,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h1"><a href="#Feature-Extraction">Feature Extraction </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Feature-Extraction-with-Frequencies">Feature Extraction with Frequencies </a></li>
+<li class="toc-entry toc-h2"><a href="#Extracting-the-features">Extracting the features </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#Table-of-word-counts">Table of word counts </a></li>
@@ -144,7 +145,12 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#Gradient">Gradient </a></li>
 <li class="toc-entry toc-h2"><a href="#Cost-Function">Cost Function </a></li>
 <li class="toc-entry toc-h2"><a href="#Train">Train </a></li>
-<li class="toc-entry toc-h2"><a href="#Test">Test </a></li>
+<li class="toc-entry toc-h2"><a href="#Test">Test </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Check-performance-using-the-test-set">Check performance using the test set </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Predict-with-new-tweet">Predict with new tweet </a></li>
 </ul>
 </li>
 </ul><!--
@@ -933,6 +939,109 @@ len(freqs) = 13172
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Extracting-the-features">
+<a class="anchor" href="#Extracting-the-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extracting the features<a class="anchor-link" href="#Extracting-the-features"> </a>
+</h2>
+<ul>
+<li>The first feature is the number of positive words in a tweet.</li>
+<li>The second feature is the number of negative words in a tweet.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="n">tweet</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">process_tweet</span><span class="o">=</span><span class="n">process_tweet</span><span class="p">):</span>
+    <span class="sd">'''</span>
+<span class="sd">    Input: </span>
+<span class="sd">        tweet: a list of words for one tweet</span>
+<span class="sd">        freqs: a dictionary corresponding to the frequencies of each tuple (word, label)</span>
+<span class="sd">    Output: </span>
+<span class="sd">        x: a feature vector of dimension (1,3)</span>
+<span class="sd">    '''</span>
+    <span class="c1"># process_tweet tokenizes, stems, and removes stopwords</span>
+    <span class="n">word_l</span> <span class="o">=</span> <span class="n">process_tweet</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
+    
+    <span class="c1"># 3 elements in the form of a 1 x 3 vector</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>    
+    
+    <span class="c1">#bias term is set to 1</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> 
+        
+    <span class="c1"># loop through each word in the list of words</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_l</span><span class="p">:</span>       
+        
+        <span class="c1"># increment the word count for the positive label 1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">freqs</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">freqs</span><span class="p">[</span><span class="n">word</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="c1"># increment the word count for the negative label 0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="ow">in</span> <span class="n">freqs</span><span class="p">:</span>            
+            <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">freqs</span><span class="p">[</span><span class="n">word</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        
+    <span class="k">assert</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ejemplo_tweet</span> <span class="o">=</span><span class="n">tweets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">ejemplo_tweet</span><span class="p">)</span>
+<span class="n">extract_features</span><span class="p">(</span><span class="n">ejemplo_tweet</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">process_tweet</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>@Lamb2ja Hey James! How odd :/ Please call our Contact Centre on 02392441234 and we will be able to assist you :) Many thanks!
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1.000e+00, 4.613e+03, 5.180e+02]])</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -2113,6 +2222,8 @@ len(freqs) = 13172
 <h1 id="Logistic-Regression">
 <a class="anchor" href="#Logistic-Regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logistic Regression<a class="anchor-link" href="#Logistic-Regression"> </a>
 </h1>
+<p>Logistic regression takes a regular linear regression, and applies a sigmoid to the output of the linear regression.</p>
+
 </div>
 </div>
 </div>
@@ -2133,6 +2244,31 @@ len(freqs) = 13172
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">):</span> 
+    <span class="sd">'''</span>
+<span class="sd">    Input:</span>
+<span class="sd">        z: is the input (can be a scalar or an array)</span>
+<span class="sd">    Output:</span>
+<span class="sd">        h: the sigmoid of z</span>
+<span class="sd">    '''</span>  
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>     
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -2167,12 +2303,65 @@ len(freqs) = 13172
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">gradientDescent</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">alpha</span> <span class="p">,</span> <span class="n">num_iters</span><span class="p">):</span>
+    <span class="sd">'''</span>
+<span class="sd">    Input:</span>
+<span class="sd">        x: matrix of features which is (m,n+1)</span>
+<span class="sd">        y: corresponding labels of the input matrix x, dimensions (m,1)</span>
+<span class="sd">        theta: weight vector of dimension (n+1,1)</span>
+<span class="sd">        alpha: learning rate</span>
+<span class="sd">        num_iters: number of iterations you want to train your model for</span>
+<span class="sd">    Output:</span>
+<span class="sd">        J: the final cost</span>
+<span class="sd">        theta: your final weight vector</span>
+<span class="sd">    Hint: you might want to print the cost to make sure that it is going down.</span>
+<span class="sd">    '''</span>
+    <span class="c1"># get 'm', the number of rows in matrix x</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:])</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_iters</span><span class="p">):</span>
+        
+        <span class="c1"># get z, the dot product of x and theta        </span>
+        <span class="n">z</span> <span class="o">=</span>  <span class="n">x</span> <span class="o">@</span> <span class="n">theta</span>     
+        <span class="c1"># get the sigmoid of z</span>
+        <span class="n">h</span> <span class="o">=</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        
+        <span class="c1"># calculate the cost function</span>
+        
+        <span class="n">J</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">m</span><span class="p">)</span><span class="o">*</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">+</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">h</span><span class="p">)))</span>
+
+        <span class="c1"># update the weights theta</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="n">m</span>  <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">h</span><span class="o">-</span><span class="n">y</span><span class="p">))</span> 
+        
+    <span class="n">J</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">J</span><span class="p">,</span> <span class="n">theta</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Train">
 <a class="anchor" href="#Train" aria-hidden="true"><span class="octicon octicon-link"></span></a>Train<a class="anchor-link" href="#Train"> </a>
 </h2>
+<ul>
+<li>Stack the features for all training examples into a matrix X.</li>
+<li>Call gradientDescent, which you've implemented above.</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -2184,15 +2373,80 @@ len(freqs) = 13172
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_x</span><span class="o">=</span> <span class="n">tweets</span><span class="p">[:</span><span class="mi">8000</span><span class="p">]</span>
+<span class="n">train_y</span><span class="o">=</span> <span class="n">labels</span><span class="p">[:</span><span class="mi">8000</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">train_x</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_x</span><span class="p">)):</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span><span class="o">=</span> <span class="n">extract_features</span><span class="p">(</span><span class="n">train_x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">freqs</span><span class="p">)</span>
+
+<span class="c1"># training labels corresponding to X</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">train_y</span>
+
+<span class="c1"># Apply gradient descent</span>
+<span class="n">J</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">gradientDescent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The cost after training is </span><span class="si">{</span><span class="n">J</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The resulting vector of weights is </span><span class="si">{</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">theta</span><span class="p">)]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Test">
 <a class="anchor" href="#Test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test<a class="anchor-link" href="#Test"> </a>
 </h2>
+<p>Predict whether a tweet is positive or negative.</p>
+
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_x</span><span class="o">=</span> <span class="n">tweets</span><span class="p">[</span><span class="mi">8000</span><span class="p">:]</span>
+<span class="n">test_y</span><span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="mi">8000</span><span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -2201,6 +2455,166 @@ len(freqs) = 13172
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">predict_tweet</span><span class="p">(</span><span class="n">tweet</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+    <span class="sd">'''</span>
+<span class="sd">    Input: </span>
+<span class="sd">        tweet: a string</span>
+<span class="sd">        freqs: a dictionary corresponding to the frequencies of each tuple (word, label)</span>
+<span class="sd">        theta: (3,1) vector of weights</span>
+<span class="sd">    Output: </span>
+<span class="sd">        y_pred: the probability of a tweet being positive or negative</span>
+<span class="sd">    '''</span>       
+    <span class="c1"># extract the features of the tweet and store it into x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">extract_features</span><span class="p">(</span><span class="n">tweet</span><span class="p">,</span> <span class="n">freqs</span><span class="p">)</span>
+    
+    <span class="c1"># make the prediction using x and theta</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span> <span class="o">@</span> <span class="n">theta</span><span class="p">)</span>
+   
+    <span class="k">return</span> <span class="n">y_pred</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'I am happy'</span><span class="p">,</span> <span class="s1">'I am bad'</span><span class="p">,</span> <span class="s1">'this movie should have been great.'</span><span class="p">,</span> <span class="s1">'great'</span><span class="p">,</span> <span class="s1">'great great'</span><span class="p">,</span> <span class="s1">'great great great'</span><span class="p">,</span> <span class="s1">'great great great great'</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span> <span class="s1">'</span><span class="si">%s</span><span class="s1"> -&gt; </span><span class="si">%f</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">tweet</span><span class="p">,</span> <span class="n">predict_tweet</span><span class="p">(</span><span class="n">tweet</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">theta</span><span class="p">)))</span>   
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Check-performance-using-the-test-set">
+<a class="anchor" href="#Check-performance-using-the-test-set" aria-hidden="true"><span class="octicon octicon-link"></span></a>Check performance using the test set<a class="anchor-link" href="#Check-performance-using-the-test-set"> </a>
+</h3>
+<p>Check how your model might perform on real, unseen data</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">test_logistic_regression</span><span class="p">(</span><span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">predict_tweet</span><span class="o">=</span><span class="n">predict_tweet</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Input: </span>
+<span class="sd">        test_x: a list of tweets</span>
+<span class="sd">        test_y: (m, 1) vector with the corresponding labels for the list of tweets</span>
+<span class="sd">        freqs: a dictionary with the frequency of each pair (or tuple)</span>
+<span class="sd">        theta: weight vector of dimension (3, 1)</span>
+<span class="sd">    Output: </span>
+<span class="sd">        accuracy: (# of tweets classified correctly) / (total # of tweets)</span>
+<span class="sd">    """</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_x</span><span class="p">[</span><span class="mi">0</span><span class="p">:])</span>
+    
+    <span class="c1"># the list for storing predictions</span>
+    <span class="n">y_hat</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="n">test_x</span><span class="p">:</span>
+        <span class="c1"># get the label prediction for the tweet</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">predict_tweet</span><span class="p">(</span><span class="n">tweet</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">y_pred</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="c1"># append 1.0 to the list</span>
+            <span class="n">y_hat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># append 0 to the list</span>
+            <span class="n">y_hat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="c1"># With the above implementation, y_hat is a list, but test_y is (m,1) array</span>
+    <span class="c1"># convert both to one-dimensional arrays in order to compare them using the '==' operator</span>
+      
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">test_y</span><span class="o">.</span><span class="n">T</span><span class="o">==</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_hat</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">test_y</span><span class="p">)</span>
+  
+    <span class="k">return</span> <span class="n">accuracy</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tmp_accuracy</span> <span class="o">=</span> <span class="n">test_logistic_regression</span><span class="p">(</span><span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Logistic regression model's accuracy = </span><span class="si">{</span><span class="n">tmp_accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Predict-with-new-tweet">
+<a class="anchor" href="#Predict-with-new-tweet" aria-hidden="true"><span class="octicon octicon-link"></span></a>Predict with new tweet<a class="anchor-link" href="#Predict-with-new-tweet"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_tweet</span> <span class="o">=</span> <span class="s1">'This is a ridiculously bright movie. The plot was terrible and I was sad until the ending!'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">process_tweet</span><span class="p">(</span><span class="n">my_tweet</span><span class="p">))</span>
+<span class="n">y_hat</span> <span class="o">=</span> <span class="n">predict_tweet</span><span class="p">(</span><span class="n">my_tweet</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_hat</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">y_hat</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Positive sentiment'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Negative sentiment'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
 </div>
 
 
