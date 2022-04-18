@@ -133,26 +133,26 @@ window.onload = wrap_img;
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#Approximate-nearest-neighbors">Approximate nearest neighbors </a></li>
-<li class="toc-entry toc-h1"><a href="#Naive-Machine-Translation-and-LSH">Naive Machine Translation and LSH </a>
+<li class="toc-entry toc-h1"><a href="#Naive-Machine-Translation">Naive Machine Translation </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#The-word-embeddings-data-for-English-and-French-words">The word embeddings data for English and French words </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Generate-embedding-and-transform-matrices">Generate embedding and transform matrices </a></li>
+<li class="toc-entry toc-h3"><a href="#Translations">Translations </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Translation-as-linear-transformation-of-embeddings-(R)">Translation as linear transformation of embeddings (R) </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#Translations">Translations </a>
+<li class="toc-entry toc-h3"><a href="#Computing-the-gradient-of-loss-in-respect-to-transform-matrix-R">Computing the gradient of loss in respect to transform matrix R </a></li>
+<li class="toc-entry toc-h3"><a href="#Finding-the-optimal-R-with-gradient-descent-algorithm">Finding the optimal R with gradient descent algorithm </a></li>
+<li class="toc-entry toc-h3"><a href="#Calculate-transformation-matrix-R">Calculate transformation matrix R </a></li>
+<li class="toc-entry toc-h3"><a href="#Testing-the-translation">Testing the translation </a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Translation-as-linear-transformation-of-embeddings-(R)">Translation as linear transformation of embeddings (R) </a></li>
+<li class="toc-entry toc-h4"><a href="#k-Nearest-neighbors-algorithm">k-Nearest neighbors algorithm </a></li>
+<li class="toc-entry toc-h4"><a href="#Searching-for-the-translation-embedding">Searching for the translation embedding </a></li>
+<li class="toc-entry toc-h4"><a href="#Test-your-translation-and-compute-its-accuracy">Test your translation and compute its accuracy </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#Computing-the-gradient-of-loss-in-respect-to-transform-matrix-R">Computing the gradient of loss in respect to transform matrix R </a></li>
-<li class="toc-entry toc-h2"><a href="#Finding-the-optimal-R-with-gradient-descent-algorithm">Finding the optimal R with gradient descent algorithm </a></li>
-<li class="toc-entry toc-h2"><a href="#Calculate-transformation-matrix-R">Calculate transformation matrix R </a></li>
-<li class="toc-entry toc-h2"><a href="#Testing-the-translation">Testing the translation </a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#k-Nearest-neighbors-algorithm">k-Nearest neighbors algorithm </a></li>
-<li class="toc-entry toc-h3"><a href="#Searching-for-the-translation-embedding">Searching for the translation embedding </a></li>
-<li class="toc-entry toc-h3"><a href="#Test-your-translation-and-compute-its-accuracy">Test your translation and compute its accuracy </a></li>
 </ul>
 </li>
 </ul>
@@ -842,8 +842,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Naive-Machine-Translation-and-LSH">
-<a class="anchor" href="#Naive-Machine-Translation-and-LSH" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naive Machine Translation and LSH<a class="anchor-link" href="#Naive-Machine-Translation-and-LSH"> </a>
+<h1 id="Naive-Machine-Translation">
+<a class="anchor" href="#Naive-Machine-Translation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naive Machine Translation<a class="anchor-link" href="#Naive-Machine-Translation"> </a>
 </h1>
 </div>
 </div>
@@ -995,12 +995,12 @@ The length of the English to French test dictionary is 1500
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Translations">
+<h3 id="Translations">
 <a class="anchor" href="#Translations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Translations<a class="anchor-link" href="#Translations"> </a>
-</h2>
-<h3 id="Translation-as-linear-transformation-of-embeddings-(R)">
-<a class="anchor" href="#Translation-as-linear-transformation-of-embeddings-(R)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Translation as linear transformation of embeddings (R)<a class="anchor-link" href="#Translation-as-linear-transformation-of-embeddings-(R)"> </a>
 </h3>
+<h4 id="Translation-as-linear-transformation-of-embeddings-(R)">
+<a class="anchor" href="#Translation-as-linear-transformation-of-embeddings-(R)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Translation as linear transformation of embeddings (R)<a class="anchor-link" href="#Translation-as-linear-transformation-of-embeddings-(R)"> </a>
+</h4>
 <p>Find a matrix R that minimizes the following equation:</p>
 
 </div>
@@ -1093,9 +1093,9 @@ The length of the English to French test dictionary is 1500
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Computing-the-gradient-of-loss-in-respect-to-transform-matrix-R">
+<h3 id="Computing-the-gradient-of-loss-in-respect-to-transform-matrix-R">
 <a class="anchor" href="#Computing-the-gradient-of-loss-in-respect-to-transform-matrix-R" aria-hidden="true"><span class="octicon octicon-link"></span></a>Computing the gradient of loss in respect to transform matrix R<a class="anchor-link" href="#Computing-the-gradient-of-loss-in-respect-to-transform-matrix-R"> </a>
-</h2>
+</h3>
 </div>
 </div>
 </div>
@@ -1180,9 +1180,9 @@ The length of the English to French test dictionary is 1500
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Finding-the-optimal-R-with-gradient-descent-algorithm">
+<h3 id="Finding-the-optimal-R-with-gradient-descent-algorithm">
 <a class="anchor" href="#Finding-the-optimal-R-with-gradient-descent-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finding the optimal R with gradient descent algorithm<a class="anchor-link" href="#Finding-the-optimal-R-with-gradient-descent-algorithm"> </a>
-</h2>
+</h3>
 <ul>
 <li>Calculate gradient  g  of the loss with respect to the matrix  R .</li>
 <li>Update  R  with the formula:  Rnew=Rold−αg , where  α  is the learning rate, which is a scalar.</li>
@@ -1276,9 +1276,9 @@ loss at iteration 75 is: 3.4442
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Calculate-transformation-matrix-R">
+<h3 id="Calculate-transformation-matrix-R">
 <a class="anchor" href="#Calculate-transformation-matrix-R" aria-hidden="true"><span class="octicon octicon-link"></span></a>Calculate transformation matrix R<a class="anchor-link" href="#Calculate-transformation-matrix-R"> </a>
-</h2>
+</h3>
 </div>
 </div>
 </div>
@@ -1331,18 +1331,18 @@ loss at iteration 375 is: 0.5735
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Testing-the-translation">
+<h3 id="Testing-the-translation">
 <a class="anchor" href="#Testing-the-translation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testing the translation<a class="anchor-link" href="#Testing-the-translation"> </a>
-</h2>
+</h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="k-Nearest-neighbors-algorithm">
+<h4 id="k-Nearest-neighbors-algorithm">
 <a class="anchor" href="#k-Nearest-neighbors-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>k-Nearest neighbors algorithm<a class="anchor-link" href="#k-Nearest-neighbors-algorithm"> </a>
-</h3>
+</h4>
 <ul>
 <li>k-NN is a method which takes a vector as input and finds the other vectors in the dataset that are closest to it.</li>
 <li>The 'k' is the number of "nearest neighbors" to find (e.g. k=2 finds the closest two neighbors).</li>
@@ -1354,9 +1354,9 @@ loss at iteration 375 is: 0.5735
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Searching-for-the-translation-embedding">
+<h4 id="Searching-for-the-translation-embedding">
 <a class="anchor" href="#Searching-for-the-translation-embedding" aria-hidden="true"><span class="octicon octicon-link"></span></a>Searching for the translation embedding<a class="anchor-link" href="#Searching-for-the-translation-embedding"> </a>
-</h3>
+</h4>
 <p>Since we're approximating the translation function from English to French embeddings by a linear transformation matrix  R , most of the time we won't get the exact embedding of a French word when we transform embedding  e  of some particular English word into the French embedding space.</p>
 <p>This is where  k -NN becomes really useful! By using  1 -NN with  eR  as input, we can search for an embedding  f  (as a row) in the matrix  Y  which is the closest to the transformed vector  eR</p>
 
@@ -1446,9 +1446,9 @@ loss at iteration 375 is: 0.5735
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Test-your-translation-and-compute-its-accuracy">
+<h4 id="Test-your-translation-and-compute-its-accuracy">
 <a class="anchor" href="#Test-your-translation-and-compute-its-accuracy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test your translation and compute its accuracy<a class="anchor-link" href="#Test-your-translation-and-compute-its-accuracy"> </a>
-</h3>
+</h4>
 <p>Accuracy = total correct / total</p>
 
 </div>
@@ -2258,7 +2258,7 @@ working on hash universe #: 24
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">doc_id</span> <span class="o">=</span> <span class="mi">0</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">doc_id</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">doc_to_search</span> <span class="o">=</span> <span class="n">all_tweets</span><span class="p">[</span><span class="n">doc_id</span><span class="p">]</span>
 <span class="n">vec_to_search</span> <span class="o">=</span> <span class="n">document_vecs</span><span class="p">[</span><span class="n">doc_id</span><span class="p">]</span>
 </pre></div>
@@ -2291,12 +2291,12 @@ working on hash universe #: 24
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>removed doc_id 0 of input vector from new_ids_to_search
-removed doc_id 0 of input vector from new_ids_to_search
-removed doc_id 0 of input vector from new_ids_to_search
-removed doc_id 0 of input vector from new_ids_to_search
-removed doc_id 0 of input vector from new_ids_to_search
-Fast considering 77 vecs
+<pre>removed doc_id 5 of input vector from new_ids_to_search
+removed doc_id 5 of input vector from new_ids_to_search
+removed doc_id 5 of input vector from new_ids_to_search
+removed doc_id 5 of input vector from new_ids_to_search
+removed doc_id 5 of input vector from new_ids_to_search
+Fast considering 150 vecs
 </pre>
 </div>
 </div>
@@ -2342,17 +2342,16 @@ Fast considering 77 vecs
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Nearest neighbors for document 0
-Document contents: #FollowFriday @France_Inte @PKuchly57 @Milipol_Paris for being top engaged members in my community this week :)
+<pre>Nearest neighbors for document 5
+Document contents: @BhaktisBanter @PallaviRuhail This one is irresistible :)
+#FlipkartFashionFriday http://t.co/EbZ0L2VENM
 
-Nearest neighbor at document id 7947
-document contents: the only thing i miss about Ireland is the cheese :(
-Nearest neighbor at document id 3654
-document contents: @gurmeetramrahim #OurDaughtersOurPride great bapu u r best coach ji :)
-Nearest neighbor at document id 3837
-document contents: @claredolotina I love dogs moar naman haha I had one cat and she didn't love me as much huhu but she was cute :3
-
-Tara barkin blends tho :D
+Nearest neighbor at document id 4193
+document contents: This girl :)  https://t.co/OAXMGGICNr
+Nearest neighbor at document id 4045
+document contents: @LemonyLimeUK thanks for the follow have a great day :)
+Nearest neighbor at document id 8914
+document contents: @zaynmalik zayn come back to 1D already. :(
 </pre>
 </div>
 </div>
