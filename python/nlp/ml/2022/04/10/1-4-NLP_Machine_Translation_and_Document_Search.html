@@ -78,7 +78,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      20 min read
+      25 min read
     
 </span></p>
 
@@ -167,6 +167,8 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#Choosing-the-number-of-planes">Choosing the number of planes </a></li>
 <li class="toc-entry toc-h3"><a href="#Getting-the-hash-number-for-a-vector">Getting the hash number for a vector </a></li>
 <li class="toc-entry toc-h3"><a href="#Creating-a-hash-table">Creating a hash table </a></li>
+<li class="toc-entry toc-h3"><a href="#Creating-all-hash-tables">Creating all hash tables </a></li>
+<li class="toc-entry toc-h3"><a href="#Approximate-K-NN">Approximate K-NN </a></li>
 </ul>
 </li>
 </ul>
@@ -2012,8 +2014,6 @@ shape of document_vecs (10000, 300)
 <span class="sd">        - id_table: dictionary - keys are hashes, values are list of vectors id's</span>
 <span class="sd">                            (it's used to know which tweet corresponds to the hashed vector)</span>
 <span class="sd">    """</span>
-    <span class="c1">### START CODE HERE ###</span>
-
     <span class="c1"># number of planes is the number of columns in the planes matrix</span>
     <span class="n">num_of_planes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">planes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
@@ -2024,19 +2024,14 @@ shape of document_vecs (10000, 300)
     <span class="c1"># Keys are integers (0,1,2.. number of buckets)</span>
     <span class="c1"># Values are empty lists</span>
     <span class="n">hash_table</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span> <span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_buckets</span><span class="p">)}</span>
-    
-    
-    
+     
     <span class="c1"># create the id table as a dictionary.</span>
     <span class="c1"># Keys are integers (0,1,2... number of buckets)</span>
     <span class="c1"># Values are empty lists</span>
-    <span class="n">id_table</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span> <span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_buckets</span><span class="p">)}</span>
-  
+    <span class="n">id_table</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span> <span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_buckets</span><span class="p">)}</span>  
     
     <span class="c1"># for each vector in 'vecs'</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vecs</span><span class="p">):</span>
-        
-        
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vecs</span><span class="p">):</span>           
         
         <span class="c1"># calculate the hash value for the vector</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">hash_value_of_vector</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">planes</span><span class="p">)</span>
@@ -2049,12 +2044,319 @@ shape of document_vecs (10000, 300)
         <span class="c1"># the key is the h, and the 'i' is appended to the list at key h</span>
         <span class="n">id_table</span><span class="p">[</span><span class="n">h</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
-    <span class="c1">### END CODE HERE ###</span>
-    
     <span class="k">return</span> <span class="n">hash_table</span><span class="p">,</span> <span class="n">id_table</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">planes</span> <span class="o">=</span> <span class="n">planes_l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># get one 'universe' of planes to test the function</span>
+<span class="n">tmp_hash_table</span><span class="p">,</span> <span class="n">tmp_id_table</span> <span class="o">=</span> <span class="n">make_hash_table</span><span class="p">(</span><span class="n">document_vecs</span><span class="p">,</span> <span class="n">planes</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The hash table at key 0 has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp_hash_table</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2"> document vectors"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The id table at key 0 has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp_id_table</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The first 5 document indices stored at key 0 of are </span><span class="si">{</span><span class="n">tmp_id_table</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The hash table at key 0 has 1351 document vectors
+The id table at key 0 has 1351
+The first 5 document indices stored at key 0 of are [3, 8, 16, 18, 29]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Creating-all-hash-tables">
+<a class="anchor" href="#Creating-all-hash-tables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating all hash tables<a class="anchor-link" href="#Creating-all-hash-tables"> </a>
+</h3>
+<p>hash your vectors and store them in a hash table that would allow you to quickly look up and search for similar vectors.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_hash_id_tables</span><span class="p">(</span><span class="n">n_universes</span><span class="p">):</span>
+    <span class="n">hash_tables</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">id_tables</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">universe_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_universes</span><span class="p">):</span>  <span class="c1"># there are 25 hashes</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'working on hash universe #:'</span><span class="p">,</span> <span class="n">universe_id</span><span class="p">)</span>
+        <span class="n">planes</span> <span class="o">=</span> <span class="n">planes_l</span><span class="p">[</span><span class="n">universe_id</span><span class="p">]</span>
+        <span class="n">hash_table</span><span class="p">,</span> <span class="n">id_table</span> <span class="o">=</span> <span class="n">make_hash_table</span><span class="p">(</span><span class="n">document_vecs</span><span class="p">,</span> <span class="n">planes</span><span class="p">)</span>
+        <span class="n">hash_tables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hash_table</span><span class="p">)</span>
+        <span class="n">id_tables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">id_table</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">hash_tables</span><span class="p">,</span> <span class="n">id_tables</span>
+
+<span class="n">hash_tables</span><span class="p">,</span> <span class="n">id_tables</span> <span class="o">=</span> <span class="n">create_hash_id_tables</span><span class="p">(</span><span class="n">N_UNIVERSES</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>working on hash universe #: 0
+working on hash universe #: 1
+working on hash universe #: 2
+working on hash universe #: 3
+working on hash universe #: 4
+working on hash universe #: 5
+working on hash universe #: 6
+working on hash universe #: 7
+working on hash universe #: 8
+working on hash universe #: 9
+working on hash universe #: 10
+working on hash universe #: 11
+working on hash universe #: 12
+working on hash universe #: 13
+working on hash universe #: 14
+working on hash universe #: 15
+working on hash universe #: 16
+working on hash universe #: 17
+working on hash universe #: 18
+working on hash universe #: 19
+working on hash universe #: 20
+working on hash universe #: 21
+working on hash universe #: 22
+working on hash universe #: 23
+working on hash universe #: 24
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Approximate-K-NN">
+<a class="anchor" href="#Approximate-K-NN" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approximate K-NN<a class="anchor-link" href="#Approximate-K-NN"> </a>
+</h3>
+<p>using locality sensitive hashing, to search for documents that are similar to a given document at the index doc_id</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">approximate_knn</span><span class="p">(</span><span class="n">doc_id</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">planes_l</span><span class="p">,</span> <span class="n">hash_tables</span><span class="p">,</span> <span class="n">id_tables</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_universes_to_use</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">hash_value_of_vector</span><span class="o">=</span><span class="n">hash_value_of_vector</span><span class="p">):</span>
+    <span class="sd">"""Search for k-NN using hashes."""</span>
+    <span class="c1">#assert num_universes_to_use &lt;= N_UNIVERSES      </span>
+    <span class="n">vecs_to_consider_l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>   <span class="c1"># Vectors that will be checked as possible nearest neighbor </span>
+    <span class="n">ids_to_consider_l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>  <span class="c1"># list of document IDs   </span>
+    <span class="n">ids_to_consider_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># create a set for ids to consider, for faster checking if a document ID already exists in the set</span>
+
+    <span class="c1"># loop through the universes of planes</span>
+    <span class="k">for</span> <span class="n">universe_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_universes_to_use</span><span class="p">):</span>
+        
+        <span class="n">planes</span> <span class="o">=</span> <span class="n">planes_l</span><span class="p">[</span><span class="n">universe_id</span><span class="p">]</span> <span class="c1"># get the set of planes from the planes_l list, for this particular universe_id       </span>
+        <span class="n">hash_value</span> <span class="o">=</span> <span class="n">hash_value_of_vector</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">planes</span><span class="p">)</span>  <span class="c1"># get the hash value of the vector for this set of planes        </span>
+        <span class="n">hash_table</span> <span class="o">=</span> <span class="n">hash_tables</span><span class="p">[</span><span class="n">universe_id</span><span class="p">]</span>  <span class="c1"># get the hash table for this particular universe_id       </span>
+        <span class="n">document_vectors_l</span> <span class="o">=</span> <span class="n">hash_table</span><span class="p">[</span><span class="n">hash_value</span><span class="p">]</span>   <span class="c1"># get the list of document vectors for this hash table, where the key is the hash_value        </span>
+        <span class="n">id_table</span> <span class="o">=</span> <span class="n">id_tables</span><span class="p">[</span><span class="n">universe_id</span><span class="p">]</span>  <span class="c1"># get the id_table for this particular universe_id        </span>
+        <span class="n">new_ids_to_consider</span> <span class="o">=</span> <span class="n">id_table</span><span class="p">[</span><span class="n">hash_value</span><span class="p">]</span> <span class="c1"># get the subset of documents to consider as nearest neighbors from this id_table dictionary</span>
+
+        <span class="k">if</span> <span class="n">doc_id</span> <span class="ow">in</span> <span class="n">new_ids_to_consider</span><span class="p">:</span>
+            <span class="n">new_ids_to_consider</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">doc_id</span><span class="p">)</span>   <span class="c1">#-----</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"removed doc_id </span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2"> of input vector from new_ids_to_search"</span><span class="p">)</span>
+
+        <span class="c1"># loop through the subset of document vectors to consider</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">new_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_ids_to_consider</span><span class="p">):</span>
+
+            <span class="c1"># if the document ID is not yet in the set ids_to_consider...</span>
+            <span class="k">if</span> <span class="n">new_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ids_to_consider_set</span><span class="p">:</span>
+                <span class="c1"># access document_vectors_l list at index i to get the embedding</span>
+                <span class="c1"># then append it to the list of vectors to consider as possible nearest neighbors</span>
+                <span class="n">document_vector_at_i</span> <span class="o">=</span> <span class="n">get_document_embedding</span><span class="p">(</span><span class="n">all_tweets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">en_embeddings_subset</span><span class="p">,</span> <span class="n">process_tweet</span><span class="o">=</span><span class="n">process_tweet</span><span class="p">)</span>        <span class="c1">#-----</span>
+                <span class="n">vecs_to_consider_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">document_vector_at_i</span><span class="p">)</span>                  <span class="c1">#-----</span>
+
+                <span class="c1"># append the new_id (the index for the document) to the list of ids to consider</span>
+                <span class="n">ids_to_consider_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_id</span><span class="p">)</span>
+
+                <span class="c1"># also add the new_id to the set of ids to consider</span>
+                <span class="c1"># (use this to check if new_id is not already in the IDs to consider)</span>
+                <span class="n">ids_to_consider_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_id</span><span class="p">)</span>
+
+    <span class="c1"># Now run k-NN on the smaller set of vecs-to-consider.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Fast considering </span><span class="si">%d</span><span class="s2"> vecs"</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">vecs_to_consider_l</span><span class="p">))</span>
+
+    <span class="c1"># convert the vecs to consider set to a list, then to a numpy array</span>
+    <span class="n">vecs_to_consider_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vecs_to_consider_l</span><span class="p">)</span>
+
+    <span class="c1"># call nearest neighbors on the reduced list of candidate vectors</span>
+    <span class="n">nearest_neighbor_idx_l</span> <span class="o">=</span> <span class="n">nearest_neighbor</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">vecs_to_consider_arr</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+
+    <span class="c1"># Use the nearest neighbor index list as indices into the ids to consider</span>
+    <span class="c1"># create a list of nearest neighbors by the document ids</span>
+    <span class="n">nearest_neighbor_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">ids_to_consider_l</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">nearest_neighbor_idx_l</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">nearest_neighbor_ids</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">doc_id</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">doc_to_search</span> <span class="o">=</span> <span class="n">all_tweets</span><span class="p">[</span><span class="n">doc_id</span><span class="p">]</span>
+<span class="n">vec_to_search</span> <span class="o">=</span> <span class="n">document_vecs</span><span class="p">[</span><span class="n">doc_id</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nearest_neighbor_ids</span> <span class="o">=</span> <span class="n">approximate_knn</span><span class="p">(</span>
+    <span class="n">doc_id</span><span class="p">,</span> <span class="n">vec_to_search</span><span class="p">,</span> <span class="n">planes_l</span><span class="p">,</span> <span class="n">hash_tables</span><span class="p">,</span> <span class="n">id_tables</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">num_universes_to_use</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>removed doc_id 0 of input vector from new_ids_to_search
+removed doc_id 0 of input vector from new_ids_to_search
+removed doc_id 0 of input vector from new_ids_to_search
+removed doc_id 0 of input vector from new_ids_to_search
+removed doc_id 0 of input vector from new_ids_to_search
+Fast considering 77 vecs
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Users\juan_\AppData\Local\Temp/ipykernel_16868/2362656131.py:15: RuntimeWarning: invalid value encountered in double_scalars
+  cos_similarity = np.dot(v,row)/(np.linalg.norm(v)*np.linalg.norm(row))
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Nearest neighbors for document </span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Document contents: </span><span class="si">{</span><span class="n">doc_to_search</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">neighbor_id</span> <span class="ow">in</span> <span class="n">nearest_neighbor_ids</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Nearest neighbor at document id </span><span class="si">{</span><span class="n">neighbor_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"document contents: </span><span class="si">{</span><span class="n">all_tweets</span><span class="p">[</span><span class="n">neighbor_id</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Nearest neighbors for document 0
+Document contents: #FollowFriday @France_Inte @PKuchly57 @Milipol_Paris for being top engaged members in my community this week :)
+
+Nearest neighbor at document id 7947
+document contents: the only thing i miss about Ireland is the cheese :(
+Nearest neighbor at document id 3654
+document contents: @gurmeetramrahim #OurDaughtersOurPride great bapu u r best coach ji :)
+Nearest neighbor at document id 3837
+document contents: @claredolotina I love dogs moar naman haha I had one cat and she didn't love me as much huhu but she was cute :3
+
+Tara barkin blends tho :D
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
