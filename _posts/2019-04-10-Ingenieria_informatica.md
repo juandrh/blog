@@ -1,3 +1,9 @@
+---
+title: Post One
+sticky_rank: 1
+---
+
+
 # "Grado en ingerniería Informática"
 > "Mis estudios en la Universidad a Distancia de Madrid (UDIMA)"
 
@@ -12,3 +18,7 @@
 - sticky_rank: 1
 - metadata_key1: metadata_value1
 - metadata_key2: metadata_value2
+
+
+
+
