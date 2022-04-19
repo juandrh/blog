@@ -10,7 +10,7 @@ categories: [ingenieria informatica]
 ---
 
 # Curso 1º:
-- Fundamentos de Programación [Guía docente](https://www.udima.es/es/fundamentos-programacion-116.html) [Esquemas](/01/fp/FP 01-10.pdf)
+- Fundamentos de Programación [Guía docente](https://www.udima.es/es/fundamentos-programacion-116.html) [Esquemas](01/fp/FP 01-10.pdf)
 - Álgebra
 - Tecnología y Estructura de Computadores
 - Análisis Matemático
