@@ -72,9 +72,6 @@
   
 
   
-  
-
-  
 
   
   
@@ -85,13 +82,20 @@
   
 
   
+
+  
+  
+
+  
+  
+
   
 
   
   
 
   
-      ,"page9": {
+      ,"page11": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://juandrh.github.io/blog/robots.txt",
