@@ -1,6 +1,11 @@
 ---
 title: Post One
 sticky_rank: 1
+toc: true
+badges: true
+comments: true
+categories: [ingenieria informatica]
+
 ---
 
 
