@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://juandrh.github.io/blog/2019/04/10/Ingenieria_informatica.html</loc>
+<loc>https://juandrh.github.io/blog/ingenieria%20informatica/2019/04/10/Ingenieria_informatica.html</loc>
 <lastmod>2019-04-10T00:00:00-05:00</lastmod>
 </url>
 <url>
@@ -97,6 +97,6 @@
 </url>
 <url>
 <loc>https://juandrh.github.io/blog/google1bf42e2a219f9ac2.html</loc>
-<lastmod>2022-04-18T23:56:43-05:00</lastmod>
+<lastmod>2022-04-18T23:58:56-05:00</lastmod>
 </url>
 </urlset>
