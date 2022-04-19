@@ -10,7 +10,7 @@ categories: [ingenieria informatica]
 ---
 
 # Curso 1º:
-- Fundamentos de Programación: [Guía docente](https://www.udima.es/es/fundamentos-programacion-116.html) - [Esquemas](https://juandrh.github.io/blog/docs/01/fp/FP-01-10.pdf) - [AA1] (01/fp/Juan_DelrioHuertas_AA1_2019_20_1s.pdf) - [AA2](01/fp/Juan_DelrioHuertas_AA2_2019_20_1s.pdf) - [AEC1](01/fp/Juan_DelrioHuertas_AEC1_2019_20_1s.pdf) - [AEC1.fuente](01/fp/Juan_DelrioHuertas_AEC1_2019_20_1s.cpp) - [AEC2.fuentes](01/fp/AEC2)
+- Fundamentos de Programación: [Guía docente](https://www.udima.es/es/fundamentos-programacion-116.html) - [Esquemas](https://github.com/juandrh/blog/docs/01/fp/FP-01-10.pdf) - [AA1] (01/fp/Juan_DelrioHuertas_AA1_2019_20_1s.pdf) - [AA2](01/fp/Juan_DelrioHuertas_AA2_2019_20_1s.pdf) - [AEC1](01/fp/Juan_DelrioHuertas_AEC1_2019_20_1s.pdf) - [AEC1.fuente](01/fp/Juan_DelrioHuertas_AEC1_2019_20_1s.cpp) - [AEC2.fuentes](01/fp/AEC2)
 - Álgebra
 - Tecnología y Estructura de Computadores
 - Análisis Matemático
