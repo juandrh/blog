@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://juandrh.github.io/blog/2019/04/10/Ingenieria_informatica.html</loc>
+<lastmod>2019-04-10T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://juandrh.github.io/blog/curso_fast.ai/2021/07/04/empezando-el-curso.html</loc>
 <lastmod>2021-07-04T00:00:00-05:00</lastmod>
 </url>
@@ -93,6 +97,6 @@
 </url>
 <url>
 <loc>https://juandrh.github.io/blog/google1bf42e2a219f9ac2.html</loc>
-<lastmod>2022-04-18T22:56:20-05:00</lastmod>
+<lastmod>2022-04-18T23:52:58-05:00</lastmod>
 </url>
 </urlset>
