@@ -10,8 +10,8 @@ categories: [ingenieria informatica]
 ---
 
 # Curso 1º:
-- Fundamentos de Programación: [Guía docente](https://www.udima.es/es/fundamentos-programacion-116.html) - [Esquemas](https://github.com/juandrh/blog/blob/master/docs/01/fp/FP-01-10.pdf) - [Trabajos] (https://github.com/juandrh/blog/blob/master/docs/01/fp/) 
-- Álgebra
+- Fundamentos de Programación: [Guía docente](https://www.udima.es/es/fundamentos-programacion-116.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/fp/FP-01-10.pdf) - [Trabajos] (https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/fp) 
+- Álgebra [Guía docente](https://www.udima.es/es/fundamentos-programacion-116.html) - [Esquemas](https://github.com/juandrh/blog/blob/master/docs/01/fp/FP-01-10.pdf) - [Trabajos] (https://github.com/juandrh/blog/blob/master/docs/01/fp/) 
 - Tecnología y Estructura de Computadores
 - Análisis Matemático
 - Tecnologías de la Información y de la Comunicación
