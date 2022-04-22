@@ -18,11 +18,11 @@ categories: [ingenieria informatica]
 - Tecnología y Estructura de Computadores [Guía docente](https://www.udima.es/es/tecnologia-estructura-computadores-118.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/tec/Esq-TEC.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/tec) 
 - Análisis Matemático [Guía docente](https://www.udima.es/es/analisis-matematico.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/am/ESQ-AM.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/am) 
 - Tecnologías de la Información y de la Comunicación [Guía docente](https://www.udima.es/es/tecnologias-informacion-comunicacion-116.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/tic/Esq-TIC.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/tic) 
-- Electromagnetismo, Semiconductores y Ondas
-- Matemática Discreta
-- Estructuras de datos
+- Electromagnetismo, Semiconductores y Ondas [Guía docente](https://www.udima.es/es/electromagnetismo-semiconductores-ondas.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/eso/Esq-ES.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/eso) 
+- Matemática Discreta [Guía docente](https://www.udima.es/es/matematica-discreta-116.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/md/MD.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/md) 
+- Estructuras de datos [Guía docente](https://www.udima.es/es/estructuras-datos-116.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/ed/Esq-ED.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/ed) 
 - Inglés
-- Metodología de la Programación
+- Metodología de la Programación [Guía docente](https://www.udima.es/es/metodologia-programacion-118.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/mp/ESQ-MP.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/mp) 
 
 
 
