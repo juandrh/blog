@@ -8,10 +8,12 @@ comments: true
 categories: [ingenieria informatica]
 
 ---
-## Universidad a Distancia de Madrid (UDIMA) 
 # Grado en Ingerniería Informática
+Universidad a Distancia de Madrid (UDIMA) 
 
-![](https://github.com/juandrh/blog/tree/master/images/udima.png)
+## Esquemas y trabajos realizados en cada asignatura  
+
+![](https://github.com/juandrh/Estudios_Ingenieria_Informatica/udima.png)
 # Curso 1º:
 - Fundamentos de Programación: [Guía docente](https://www.udima.es/es/fundamentos-programacion-116.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/fp/FP-01-10.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/fp) 
 - Álgebra: [Guía docente](https://www.udima.es/es/algebra.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/alg/Esquemas-AL.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/alg) 
@@ -21,12 +23,12 @@ categories: [ingenieria informatica]
 - Electromagnetismo, Semiconductores y Ondas: [Guía docente](https://www.udima.es/es/electromagnetismo-semiconductores-ondas.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/eso/Esq-ES.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/eso) 
 - Matemática Discreta: [Guía docente](https://www.udima.es/es/matematica-discreta-116.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/md/MD.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/md) 
 - Estructuras de datos: [Guía docente](https://www.udima.es/es/estructuras-datos-116.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/ed/Esq-ED.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/ed) 
-- Inglés
+- Inglés:   _covalidada_
 - Metodología de la Programación: [Guía docente](https://www.udima.es/es/metodologia-programacion-118.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/mp/ESQ-MP.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso01/mp) 
 
 # Curso 2º:
 
-- Estadística y Probabilidad
+- Estadística y Probabilidad:   _covalidada_
 - Bases de Datos: [Guía docente](https://www.udima.es/es/bases-datos-116.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso02/bd/Esq-BBDD.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso02/bd) 
 - Derecho Informático y Deontología Profesional: [Guía docente](https://www.udima.es/es/derecho-informatico-deontologia-profesional.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso02/dch/Esq-Derecho.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso02/dch) 
 - Redes de Computadores: [Guía docente](https://www.udima.es/es/redes-de-computadores.html) - [Esquemas](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso02/redes/Esq-REDES.pdf) - [Trabajos](https://github.com/juandrh/Estudios_Ingenieria_Informatica/tree/main/Curso02/redes) 
@@ -34,7 +36,7 @@ categories: [ingenieria informatica]
 - Sistemas Operativos:
 - Interacción Persona-Computador:
 - Paradigmas de la Programación:
-- Organización de Empresas
+- Organización de Empresas:  _covalidada_
 - Análisis y Diseño de Algoritmos:
 
 # Curso 3º:
