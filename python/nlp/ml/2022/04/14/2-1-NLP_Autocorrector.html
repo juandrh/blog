@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>1.4- NLP: Autocorrector | Juan del Río</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="1.4- NLP: Autocorrector" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Procesamiento del lenguaje natural con Modelos Probabilísticos" />
+<meta property="og:description" content="Procesamiento del lenguaje natural con Modelos Probabilísticos" />
+<link rel="canonical" href="https://juandrh.github.io/blog/python/nlp/ml/2022/04/14/2-1-NLP_Autocorrector.html" />
+<meta property="og:url" content="https://juandrh.github.io/blog/python/nlp/ml/2022/04/14/2-1-NLP_Autocorrector.html" />
+<meta property="og:site_name" content="Juan del Río" />
+<meta property="og:image" content="https://juandrh.github.io/blog/images/framework.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-04-14T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://juandrh.github.io/blog/python/nlp/ml/2022/04/14/2-1-NLP_Autocorrector.html","@type":"BlogPosting","headline":"1.4- NLP: Autocorrector","dateModified":"2022-04-14T00:00:00-05:00","datePublished":"2022-04-14T00:00:00-05:00","image":"https://juandrh.github.io/blog/images/framework.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://juandrh.github.io/blog/python/nlp/ml/2022/04/14/2-1-NLP_Autocorrector.html"},"description":"Procesamiento del lenguaje natural con Modelos Probabilísticos","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://juandrh.github.io/blog/feed.xml" title="Juan del Río" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Juan del Río</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">1.4- NLP: Autocorrector</h1><p class="page-description">Procesamiento del lenguaje natural con Modelos Probabilísticos</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-04-14T00:00:00-05:00" itemprop="datePublished">
+        Apr 14, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#NLP">NLP</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#ML">ML</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/juandrh/blog/tree/master/_notebooks/2022-04-14-2-1-NLP_Autocorrector.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/juandrh/blog/master?filepath=_notebooks%2F2022-04-14-2-1-NLP_Autocorrector.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/juandrh/blog/blob/master/_notebooks/2022-04-14-2-1-NLP_Autocorrector.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Construir-el-modelo">Construir el modelo </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Creación-del-vocabulario">Creación del vocabulario </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Preprocesamiento">Preprocesamiento </a></li>
+<li class="toc-entry toc-h3"><a href="#Creación-del-vocabulario">Creación del vocabulario </a></li>
+<li class="toc-entry toc-h3"><a href="#Agregar-información-con-el-conteo-de-palabras">Agregar información con el conteo de palabras </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Identificar-una-palabra-mal-escrita">Identificar una palabra mal escrita </a></li>
+<li class="toc-entry toc-h2"><a href="#Encontrar-cadenas-que-están-a-n-distancia-de-editar">Encontrar cadenas que están a n distancia de editar </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Divisiones">Divisiones </a></li>
+<li class="toc-entry toc-h3"><a href="#Operación-borrado">Operación borrado </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Filtrar-candidatos">Filtrar candidatos </a></li>
+<li class="toc-entry toc-h2"><a href="#Calcular-probabilidades-de-palabras">Calcular probabilidades de palabras </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-04-14-2-1-NLP_Autocorrector.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Fuentes:
+<a href="https://www.coursera.org/specializations/natural-language-processing">DeepLearning.AI: Procesamiento de lenguaje natural. Programa especializado en Coursera</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p></p>
+<div class="flash flash-success">
+    <svg class="octicon octicon-checklist octicon octicon-checklist octicon octicon-checklist octicon octicon-checklist octicon octicon-checklist octicon octicon-checklist octicon octicon-checklist octicon octicon-checklist octicon octicon-checklist octicon octicon-checklist" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 1.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v7.736a.75.75 0 101.5 0V1.75A1.75 1.75 0 0011.25 0h-8.5A1.75 1.75 0 001 1.75v11.5c0 .966.784 1.75 1.75 1.75h3.17a.75.75 0 000-1.5H2.75a.25.25 0 01-.25-.25V1.75zM4.75 4a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zM4 7.75A.75.75 0 014.75 7h2a.75.75 0 010 1.5h-2A.75.75 0 014 7.75zm11.774 3.537a.75.75 0 00-1.048-1.074L10.7 14.145 9.281 12.72a.75.75 0 00-1.062 1.058l1.943 1.95a.75.75 0 001.055.008l4.557-4.45z"></path></svg>
+    <strong>Tip: </strong>Puedes ver este post en GitHub o ejecutarlo en Binder o Google Colab, pulsa el icono.
+</div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Construir-el-modelo">
+<a class="anchor" href="#Construir-el-modelo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Construir el modelo<a class="anchor-link" href="#Construir-el-modelo"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Creación-del-vocabulario">
+<a class="anchor" href="#Creaci%C3%B3n-del-vocabulario" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creación del vocabulario<a class="anchor-link" href="#Creaci%C3%B3n-del-vocabulario"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span> <span class="c1"># regular expression library; for tokenization of words</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span> <span class="c1"># collections library; counter: dict subclass for counting hashable objects</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> <span class="c1"># for data visualization</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">'red pink pink blue blue yellow ORANGE BLUE BLUE PINK'</span> <span class="c1"># 🌈</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'string length : '</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>red pink pink blue blue yellow ORANGE BLUE BLUE PINK
+string length :  52
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Preprocesamiento">
+<a class="anchor" href="#Preprocesamiento" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preprocesamiento<a class="anchor-link" href="#Preprocesamiento"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text_lowercase</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text_lowercase</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'string length : '</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">text_lowercase</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>red pink pink blue blue yellow orange blue blue pink
+string length :  52
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\w+'</span><span class="p">,</span> <span class="n">text_lowercase</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'count : '</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>['red', 'pink', 'pink', 'blue', 'blue', 'yellow', 'orange', 'blue', 'blue', 'pink']
+count :  10
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Creación-del-vocabulario">
+<a class="anchor" href="#Creaci%C3%B3n-del-vocabulario" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creación del vocabulario<a class="anchor-link" href="#Creaci%C3%B3n-del-vocabulario"> </a>
+</h3>
+<p>Un conjunto de palabras distintas del texto.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vocab</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'count : '</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{'red', 'blue', 'pink', 'orange', 'yellow'}
+count :  5
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Agregar-información-con-el-conteo-de-palabras">
+<a class="anchor" href="#Agregar-informaci%C3%B3n-con-el-conteo-de-palabras" aria-hidden="true"><span class="octicon octicon-link"></span></a>Agregar información con el conteo de palabras<a class="anchor-link" href="#Agregar-informaci%C3%B3n-con-el-conteo-de-palabras"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counts_a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+    <span class="n">counts_a</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts_a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">counts_a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'count : '</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">counts_a</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{'red': 1, 'pink': 3, 'blue': 4, 'yellow': 1, 'orange': 1}
+count :  5
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counts_b</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">counts_b</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">counts_b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'count : '</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">counts_b</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Counter({'blue': 4, 'pink': 3, 'red': 1, 'yellow': 1, 'orange': 1})
+count :  5
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Identificar-una-palabra-mal-escrita">
+<a class="anchor" href="#Identificar-una-palabra-mal-escrita" aria-hidden="true"><span class="octicon octicon-link"></span></a>Identificar una palabra mal escrita<a class="anchor-link" href="#Identificar-una-palabra-mal-escrita"> </a>
+</h2>
+<p>Se puede comporbar si está en el vocabulario. Si no lo está puede ser un candidato.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Encontrar-cadenas-que-están-a-n-distancia-de-editar">
+<a class="anchor" href="#Encontrar-cadenas-que-est%C3%A1n-a-n-distancia-de-editar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Encontrar cadenas que están a n distancia de editar<a class="anchor-link" href="#Encontrar-cadenas-que-est%C3%A1n-a-n-distancia-de-editar"> </a>
+</h2>
+<p>Estas podrían ser cadenas aleatorias.</p>
+<p>Editar: operación en una cadena para cambiarla.</p>
+<ul>
+<li>Operaciones:<ul>
+<li>Insertar: añadir una letra</li>
+<li>Borrar: eleminar una letra</li>
+<li>Cambiar: intercambiar dos letras seguidas</li>
+<li>Sustituir: cambiar una letra por otra</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">word</span> <span class="o">=</span> <span class="s1">'dearz'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Divisiones">
+<a class="anchor" href="#Divisiones" aria-hidden="true"><span class="octicon octicon-link"></span></a>Divisiones<a class="anchor-link" href="#Divisiones"> </a>
+</h3>
+<p>Encontrar todas las formas en que se puede dividir la palabra en 2 partes</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">splits_a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">splits_a</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">word</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span><span class="n">word</span><span class="p">[</span><span class="n">i</span><span class="p">:]])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">splits_a</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>['', 'dearz']
+['d', 'earz']
+['de', 'arz']
+['dea', 'rz']
+['dear', 'z']
+['dearz', '']
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">splits_b</span> <span class="o">=</span> <span class="p">[(</span><span class="n">word</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">word</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">splits_b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('', 'dearz')
+('d', 'earz')
+('de', 'arz')
+('dea', 'rz')
+('dear', 'z')
+('dearz', '')
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Operación-borrado">
+<a class="anchor" href="#Operaci%C3%B3n-borrado" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operación borrado<a class="anchor-link" href="#Operaci%C3%B3n-borrado"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">splits</span> <span class="o">=</span> <span class="n">splits_a</span>
+<span class="n">deletes</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'word : '</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">L</span><span class="p">,</span><span class="n">R</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">R</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s1">' &lt;-- delete '</span><span class="p">,</span> <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>word :  dearz
+earz  &lt;-- delete  d
+darz  &lt;-- delete  e
+derz  &lt;-- delete  a
+deaz  &lt;-- delete  r
+dear  &lt;-- delete  z
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">splits</span> <span class="o">=</span> <span class="n">splits_a</span>
+<span class="n">deletes</span> <span class="o">=</span> <span class="p">[</span><span class="n">L</span> <span class="o">+</span> <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">L</span><span class="p">,</span> <span class="n">R</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">if</span> <span class="n">R</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">deletes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'*** which is the same as ***'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">deletes</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>['earz', 'darz', 'derz', 'deaz', 'dear']
+*** which is the same as ***
+earz
+darz
+derz
+deaz
+dear
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Filtrar-candidatos">
+<a class="anchor" href="#Filtrar-candidatos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filtrar candidatos<a class="anchor-link" href="#Filtrar-candidatos"> </a>
+</h2>
+<p>Mantener solo las palabras reales de los pasos anteriores</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vocab</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'dean'</span><span class="p">,</span><span class="s1">'deer'</span><span class="p">,</span><span class="s1">'dear'</span><span class="p">,</span><span class="s1">'fries'</span><span class="p">,</span><span class="s1">'and'</span><span class="p">,</span><span class="s1">'coke'</span><span class="p">]</span>
+<span class="n">edits</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">deletes</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'vocab : '</span><span class="p">,</span> <span class="n">vocab</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'edits : '</span><span class="p">,</span> <span class="n">edits</span><span class="p">)</span>
+
+<span class="n">candidates</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">candidates</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">edits</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span>  <span class="c1"># hint: 'set.intersection'</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'candidate words : '</span><span class="p">,</span> <span class="n">candidates</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>vocab :  ['dean', 'deer', 'dear', 'fries', 'and', 'coke']
+edits :  ['earz', 'darz', 'derz', 'deaz', 'dear']
+candidate words :  {'dear'}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Calcular-probabilidades-de-palabras">
+<a class="anchor" href="#Calcular-probabilidades-de-palabras" aria-hidden="true"><span class="octicon octicon-link"></span></a>Calcular probabilidades de palabras<a class="anchor-link" href="#Calcular-probabilidades-de-palabras"> </a>
+</h2>
+<p>Elegir la palabra que es más probable que ocurra en ese contexto.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/blog/images/copied_from_nb/images/nlp036.png" alt=""></p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="juandrh/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/python/nlp/ml/2022/04/14/2-1-NLP_Autocorrector.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Aprendiendo Inteligencia Artificial a los 50.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/juandrh" target="_blank" title="juandrh"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/juandrh2_0" target="_blank" title="juandrh2_0"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
